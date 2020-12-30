@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Bricademia Exam Portal</title>
+		<link rel="stylesheet" href="css/styles.css">
+	</head>
+	<body>
+		<!-- *******************************Hidden Parts************************************* -->
+		
+		<!-- *******Menu Bar******* -->
+		<div id="menu-bar">
+			<p class="home">Home</p>
+			<p class="portfolio">Portfolio</p>
+			<p class="contact">Contact</p>
+		</div>
+		<!-- ****Portfolio**** -->
+		<div id="show-portfolio" style="display: none;">
+			<p>These are some of the simple projects the developer has carried out. Kindly take some time out to check through</p><br>
+			<ul style="margin-left:6px;">
+				<li><a href="https://jummate.github.io/TimerClock" title="Timer Clock">Timer Clock</a></li>
+				<li><a href="https://jummate.github.io/BMICalculator" title="BMI Calculator">Body Mass Index Calculator</a></li>
+				<li><a href="https://jummate.github.io/ImageSlider" title="Image Slider">Image Slider</a></li>
+				<li><a href="https://jummate.github.io/StandardCalculator" title="Standard Calculator">Standard Calculator</a></li>
+			</ul>
+		</div>
+		<!-- ****Contact**** -->
+		<div id="show-contact" style="display: none;">
+			<p>You can always get in touch with the developer through the following media:</p><br>
+			<ul>
+				<li><span class="social">Whatsapp/Call:</span><span class="dev-contact">+2347067896279</span></li>
+				<li><span class="social">Email:</span><span class="dev-contact">jumatyakub@gmail.com</span></li>
+				<li><span class="social">Telegram:</span><span class="dev-contact">+2347067896279</span></li>
+			</ul>
+		</div>
+		<!-- ****Confirm the submission of the user's answers**** -->
+		<div id="confirmation">
+			<p>Are you sure you want to submit?</p>
+			<span>
+				<button id="ok" class="btn-confirm">OK</button>
+				<button id="cancel" class="btn-confirm">CANCEL</button>
+			</span>
+		</div>
+		<!-- ****This encloses everything**** -->
+		<div class="main-container">
+			<!-- *****Logo and name of the app are placed here**** -->
+			<header>
+				<div class="ctn-logotext">
+					<img class="first-image" src="images/bricadem-logo.png" alt="Bricademia Logo">
+					<span>bricademia</span>
+				</div>
+				<div class="ctn-menu">		
+					<div id="menu">- -</div>		<!-- This is hidden for desktop version -->
+					<!-- These are hidden for mobile version -->
+					<span class="nav-menu contact">Contact</span>
+					<span class="nav-menu portfolio">Portfolio</span>
+					<span class="nav-menu home">Home</span>
+				</div>
+			</header>
+			<!-- The body of the app including the display and navigation buttons -->
+			<main>
+				<!-- Timer and the chosen subject title -->
+				<div id="cont-timer">
+					<span class="subject-title"></span>
+					<span class="timer"></span>
+				</div>
+				<!-- The display area of the app -->
+				<div class="cont-portal-body">
+					<section id="subject-option">
+						<label for="allsubject"><h2>Please select a subject:</h2></label>
+						<select name="subject" id="allsubject">
+							<option value=""></option>
+							<option value="English Language">English Language</option>
+							<option value="Mathematics">Mathematics</option>
+							<option value="Computer Studies">Computer Studies</option>
+							<option value="Basic Science">Basic Science</option>
+							<option value="Basic Technology">Basic Technology</option>
+						</select>
+					</section>
+					<button id="subjectConfirm" class="btn-action">Submit Selection</button>
+					<button id="start" class="btn-action">Start Test</button>
+				</div>
+				<span id="error">***You have not selected an answer***</span>	<!-- This displays the error -->
+				<nav>
+					<!-- These form the navigation part -->
+					<span id="prev" class="nav-class btn-nav"><<</span>
+					<span id="page" class="nav-class"></span>
+					<span id="next" class="nav-class btn-nav">>></span>
+					<button id="send" class="btn-action">Submit</button>
+				</nav>
+			</main>
+			<footer>
+				<section id="footer-info">
+					<!-- Info about the developer -->
+					<p>Jummate<span>&nbsp;&copy;</span>2020</p>
+					<p><span class="foot-nav home">Home</span> <span class="foot-nav portfolio">Portfolio</span><span class="foot-nav contact">Contact</span></p>
+				</section>
+			</footer>
+		</div>
+	<script src="js/script.js"></script>
+	</body>
+</html>

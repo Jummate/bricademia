@@ -1,0 +1,391 @@
+*{
+	margin:0;
+	padding:0;
+	box-sizing:border-box;
+}
+html{
+	width:100vw;
+	height:100vh;
+	overflow: hidden;
+}
+/* -----------Body is positioned relatively because of the menu bar and submit confirmation------ */
+body{
+	width:100%;
+	height:100%;
+	color:#fff;
+	/* font-family:"Roboto", sans-serif; */
+	padding:10px;
+	background-color:#000;
+	font-family: 'Century Gothic','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	position: relative;
+}
+/* ---------------------Peripheral parts of the app------------------------------ */
+#menu-bar{
+	display:none;
+	font-size: 0.9rem;
+	padding-top:20px;
+	background-color: #151B38;
+	height:60%;
+	width:40%;
+	position:absolute;
+	left:10px;
+	top:10px;
+	color: white;
+	box-shadow: 1px 1px 2px #000;
+	font-family: 'Courier New', Courier, monospace;
+}
+#menu-bar p{
+	text-align: center;
+	cursor:pointer;
+	margin:8px 0;
+}
+#menu-bar p:hover{
+	background-color: #F6A600;
+}
+li{
+	margin:10px 0;
+}
+.social{
+	font-weight: bolder;
+	margin-right:6px;
+	margin-left: 6px;
+}
+.dev-contact{
+	font-weight: lighter;
+}
+.main-container{
+	background-color:#fff;
+	display:flex;
+	flex-direction:column;
+	width:100%;
+	height:100%;
+}
+/* ----------------------Header Section------------------------------------------- */
+header{
+	display:flex;
+	align-items: center;
+	width:100%;
+	height:8%;
+	/* height: 50px; */
+	padding: 0 7px;
+	background-color:#151B38;
+}
+.ctn-menu{							/* ----------- ctn or cont means container------- */
+	display:flex;
+	flex-direction:row-reverse;
+	align-items:flex-end;
+	height:80%;
+	width:40%;
+}
+#menu{
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	width:20px;
+	height:20px;
+	border: solid 2px white;
+	font-weight:bolder;
+	border-left:none;
+	border-right:none;
+	cursor:pointer;
+}
+#menu:hover{
+	border-color: #F6A600;
+	color: #F6A600;
+}
+.nav-menu{
+	display:none;
+	margin-left:5px;
+	color: #F6A600;
+	cursor: pointer;
+	font-size: 0.8rem;
+}
+.nav-menu:hover{
+	border:none;
+	outline:none;
+	color: #fff;
+}
+.ctn-logotext{
+	display:flex;
+	height:80%;
+	width:60%;
+	font-size:1.1rem;
+	align-items:flex-end;
+	justify-content: flex-start;
+	letter-spacing: 2px;
+}
+.first-image{
+	height:30px;
+	width:30px;
+	border-radius:50%;
+}
+/* -----------------------------------Body of the App------------------------------------- */
+main{
+	display:flex;
+	flex-direction:column;
+	justify-content:center;
+	align-items:center;
+	height:82%;
+	color:#151B38;
+}
+#cont-timer{
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	width:95%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:8px;
+	margin-bottom:4px;
+	height:8%;
+	border-radius:5px;
+	box-shadow:1px 1px 2px gray, -1px -1px 2px gray;
+	visibility: visible;	
+}
+.cont-portal-body{
+	height:78%;
+	display:flex;
+	font-size: 0.8rem;
+	flex-direction:column;
+	align-items:center;
+	justify-content:center;
+	width:95%;
+	background-color:#F5F5F5;
+	margin: 4px auto;
+	padding-left: 10px;
+	border-radius:5px;
+	box-shadow:1px 1px 2px gray, -1px -1px 2px gray;
+}
+#subject-option{
+	text-align: center;
+}
+#subjectConfirm{
+	margin-top:25px;
+}
+input{
+	margin-right: 20px;
+}
+#allsubject{
+	color:#F6A600;
+	outline:none;
+	border:none;
+	font-size:0.9rem;
+	margin-top: 10px;
+	border-radius:6px;
+	background-color: #DCDCDC;
+}
+.subject-title{
+	font-size: 0.8rem;
+	letter-spacing: 2px;
+	color:#F6A600;
+	width:60%;
+	margin-right:10%;
+}
+.timer{
+	font-size: 0.9rem;
+	width:20%;
+	text-align:right;
+}
+.btn-action{							/* -------btn means button--- */
+	background-color:#151B38;
+	color:#fff;
+	font-size:1.5rem;
+	font-family:"Hobo Std";
+	padding:4px;
+	border-radius:5px;
+	outline:none;
+	border:none;
+}
+.end{				/* -------This signifies the closeness of the allocated time to completion--- */	
+	color:red;
+}
+#start{
+	margin-top: 10%;
+	transition: background-color 0.1s linear 0s, color 0.1s linear 0s;
+	display: none;
+}
+#start:hover{
+	background-color: #DCDCDC;
+	color:#151B38;
+}
+#error{
+	font-style:italic;
+	color:red;
+	text-align:center;
+	display:none;
+	font-size: 0.7rem;
+}
+nav{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height:14%;
+	width:95%;
+	border-radius:5px;
+	margin:4px 0;
+	box-shadow:1px 1px 2px gray, -1px -1px 2px gray;
+	visibility: hidden;
+}
+.btn-nav{
+	border:none;
+	border-radius:2px;
+	outline:none;
+	background-color: #DCDCDC;
+	cursor: pointer;
+	box-shadow:1px 1px 2px gray, -1px -1px 2px gray;
+}
+#prev{
+	margin-right:5px;
+	padding: 5px;
+}
+#next{
+	margin-left:5px;
+	padding:5px;
+}
+.nav-class{
+	font-size: 1.2rem;
+	font-family: "Hobo Std";
+	font-weight: bolder;
+}
+/* --------------Submit button-------------- */
+#send{
+	background-color:green;
+	margin-bottom:0px;
+	height:90%;
+	transition: background-color 0.1s linear 0s, color 0.1s linear 0s;
+	margin-left:6px;
+	display: none;
+}
+#send:active{
+	background-color: #DCDCDC;
+	color:green;
+}
+/* ------------------Submit confirmation-------------------- */
+#confirmation{
+	position:absolute;
+	top:40%;
+	bottom:40%;
+	width: 40%;
+	left:30%;
+	right:30%;
+	height:20%;
+	display:flex;
+	flex-direction:column;
+	background-color:white;
+	border: groove 2px navy;
+	border-radius:8px;
+	font-size:0.7rem;
+	align-items:center;
+	justify-content:center;
+	visibility:hidden;
+	color:#151B38;
+}
+#confirmation p{
+	text-align:center;
+	margin-bottom:10px;
+	font-weight:bold;
+}
+.btn-confirm{
+	color:#fff;
+	font-size:1.1rem;
+	font-family:'Hobo Std','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	padding:2px;
+	border-radius:5px;
+	outline:none;
+	border:none;
+	transition: background-color 0.1s linear 0s, color 0.1s linear 0s;
+}
+#ok{
+	background-color:green;
+}
+#ok:hover{
+	background-color: #DCDCDC;
+	color:green;
+}
+#cancel{
+	background-color:maroon;
+}
+#cancel:hover{
+	background-color: #DCDCDC;
+	color:maroon;
+}
+/* -------------------About the Developer------------------------- */
+footer{
+	background-color:#151B38;
+	height:10%;
+	font-weight:lighter;
+	color: #F6A600;
+	text-align:center;
+	padding:5px 0;
+}
+#footer-info{
+	height:100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-size:0.9rem;
+	letter-spacing: 0.7px;
+}
+#footer-info p{
+	margin-bottom:2px;
+}
+.foot-nav{
+	color:#fff;
+	font-size:0.8rem;
+	margin-right: 8px;
+	cursor:pointer;
+}
+.foot-nav:hover{
+	color: #F6A600;
+	font-size:0.85rem;
+}
+
+/* ------------------------------- Media Queries ------------------------------ */
+
+/* --------- For Desktops, Laptops and other larger screens -------- */
+@media screen and (min-width: 767px){
+	html{
+		font-size: 20px;
+	}
+	main{
+		width:80%;
+		margin:0 auto;
+		height:80%;
+	}
+	header{
+		height:10%;
+	}
+	#start{
+		padding:10px 20px;
+	}
+	nav{
+		justify-content: flex-start;
+		padding-left: 30px;	
+	}
+	.first-image{
+		height:40px;
+		width:40px;
+	}
+	#ok{
+		margin-right:20px;
+	}
+	.btn-confirm{
+		padding:10px;
+	}
+	#menu{
+		display: none;
+	}
+	.nav-menu{
+		display:initial;
+	}
+	.cont-portal-body{
+		padding-left:20px;
+	}
+}
+/* --------- For Ipads and Tablets -------- */
+@media screen and (max-width:768px) and (min-width:480px){
+	html{
+		font-size: 17px;
+	}
+}
