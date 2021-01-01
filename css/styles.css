@@ -298,7 +298,7 @@ nav{
 	position:absolute;
 	top:40%;
 	bottom:40%;
-	width: 40%;
+	width: 50%;
 	left:30%;
 	right:30%;
 	height:20%;
@@ -322,7 +322,7 @@ nav{
 	color:#fff;
 	font-size:1.1rem;
 	font-family:'Hobo Std','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-	padding:2px;
+	padding:6px;
 	border-radius:5px;
 	outline:none;
 	border:none;
@@ -330,6 +330,7 @@ nav{
 }
 #ok{
 	background-color:green;
+	margin-right:12px;
 }
 #ok:hover{
 	background-color: #DCDCDC;
