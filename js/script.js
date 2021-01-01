@@ -491,32 +491,43 @@ let displayContact = document.querySelector("#show-contact");
 let pressMenu = true;
 let okay = document.querySelector("#ok");
 let cancel = document.querySelector("#cancel");
-let confirmEntry = document.querySelector("#subjectConfirm");
+
+let chooseSubject = document.querySelector("#choose-subject");
+let subjectOptions = document.querySelector("#subject");
 
 let selectionArea = document.querySelector("#subject-option");
 let allocatedTime = 0;
 
 //this shows the developer's portfolio on the DOM
-function showPortfolio(){
+function showPortfolio(tag){
 	displayArea.innerHTML = displayPortfolio.innerHTML;		//transfer the whole content of the portfolio section on the DOM to the display area
+	menuBar.style.display = "none";
 }
+
 //this shows the developer's contact on the DOM
-function showContact(){
+function showContact(tag){
 	displayArea.innerHTML = displayContact.innerHTML;		//transfer the whole content of the CONTACT section on the DOM to the display area
+	menuBar.style.display = "none";
 }
+
 window.addEventListener("load", () =>{subject = ""});
+
 home.forEach(element => {
 	element.addEventListener("click", () => {
 		location.reload(); 						//refresh the app to go start all over
 	});	
-})
+});
+
 portfolio.forEach(element => {
 	element.addEventListener("click", showPortfolio);
 })
+
 contact.forEach(element => {
 	element.addEventListener("click", showContact);
 })
+
 cancel.addEventListener("click", () => {document.querySelector("#confirmation").style.visibility = "hidden";})	//give the user a chance to reconsider
+
 okay.addEventListener("click", () => {
 	clearTimeout(timeOut);									//stop the timer
 	let result = displayResult();							//compute the result of the just concluded test
@@ -544,6 +555,7 @@ menu.addEventListener("click", () => {				//hide and display the menu bar
 	}
 	
 })
+
 addEventListener("click", event => {		//Alternative to using the menu button to hide the menu bar
 	let x = document.body.clientWidth;		 //the with of the page
 	let y = document.body.clientHeight;		//the height of the page
@@ -556,28 +568,30 @@ addEventListener("click", event => {		//Alternative to using the menu button to 
 	}
 });
 
-//confirm user's choice
-confirmEntry.addEventListener("click", () => {
+//show available subject oprions to the users
+chooseSubject.addEventListener("click", () => {
+	chooseSubject.style.display = "none";
+	subjectOptions.style.display = "block";
+	subjectOptions.style.animation="slide 0.2s linear normal";
+ });
+ 
+subjectOptions.addEventListener("click", event => {
+	subject = event.target.textContent;				//users choose a subject
+	switch(subject){
+		case "MATHEMATICS":
+			allocatedTime = 40;				//allocate 40 minutes to Mathematics only
+			break;
+		default:
+			allocatedTime = 20;
+			break;						// allocate 20 minutes to all other subjects;	
+	}
 	selectionArea.innerHTML = `You have <span style="font-weight:bolder;">${allocatedTime} minutes</span> for this test.`;
 	start.style.display = "block";
-	confirmEntry.style.display = "none";
-});
+	
+})
+
 addEventListener("click", event => {
-	if(event.target.nodeName == "SELECT" || event.target.nodeName == "OPTION"){ 		//has any option been selected?
-		subject = event.target.value;							//get the value of the option selected to be the desired subject
-		if(subject){
-			switch(subject){
-				case "Mathematics":
-					allocatedTime = 40;				//allocate 40 minutes to Mathematics only
-					break;
-				default:
-					allocatedTime = 20
-					break;						// allocate 20 minutes to all other subjects;	
-			}
-		}
-		
-	}
-	else if(event.target.nodeName == "INPUT"){						//ok. Maybe the tag clicked was input tag
+	if(event.target.nodeName == "INPUT"){						//ok. Maybe the tag clicked was input tag
 		event.target.setAttribute("checked",true);			
 		let allOptions = Array.from(document.querySelectorAll("input"));	//get all the input tags on the DOM
 		for(let each of allOptions){
@@ -585,12 +599,10 @@ addEventListener("click", event => {
 				if(quesList[pos].length == 6){								//the question has not been answered already
 					quesList[pos].push(each.value);							//take note of the content of the option selected
 					quesList[pos].push(allOptions.indexOf(each));			//take note of the option selected
-					
 				}
 				else{																//oh the question had already been answered, the user only wants to change his/her mind
 					quesList[pos][quesList[pos].length - 2] = each.value;					//modify and take note of the content of the new choice
-					quesList[pos][quesList[pos].length - 1] = allOptions.indexOf(each);		//note the new option selected
-					
+					quesList[pos][quesList[pos].length - 1] = allOptions.indexOf(each);		//note the new option selected	
 				}
 			}
 			else{
@@ -613,6 +625,7 @@ function displayResult(){
 //this submits the progress of the user when the allocated time has elapsed
 //It does so WITHOUT asking whether the user wants to submit or not
 //consequently, 0 is recorded for any unanswered question in this case
+
 function submitWithout(){
 	error.style.display = "none";
 	let result = displayResult();
@@ -626,6 +639,7 @@ function submitWithout(){
 	prev.style.visibility = "hidden";
 	send.style.display = "hidden";
 }
+
 send.addEventListener("click",() => {
 	if(quesList[pos].length == 6){			//this question has not been answered, you still have the time to do this
 		error.style.display = "block";		//then, an error message pops up to tell you this
@@ -649,11 +663,11 @@ function render(chosen){
 
 	displayArea.style.setProperty("align-items","flex-start");
 	displayArea.style.setProperty("justifity-content","flex-start");
-	displayArea.style.setProperty("padding-top","40px");
+	displayArea.style.setProperty("padding-top","30px");
 	displayArea.style.setProperty("font-weight","bold");
 	displayArea.innerHTML = "";
-	 if(subject == "English Language"){					//pass in the instruction for English only
-		displayArea.innerHTML = `<p style="font-style:italic; font-weight:light;">For questions 1 to 10, choose the option that is <span style="font-style:normal; font-weight:bolder;">most nearly opposite</span> in meaning to the underlined word as it is used in the sentence</p><br>`;
+	 if(subject == "ENGLISH LANGUAGE"){					//pass in the instruction for English only
+		displayArea.innerHTML = `<p style="font-style:italic; font-weight:light; margin-bottom:8px;">For questions 1 to 10, choose the option that is <span style="font-style:normal; font-weight:bolder;">most nearly opposite</span> in meaning to the underlined word as it is used in the sentence</p>`;
 	}
 				
 	displayArea.innerHTML+= `<div style="display:flex; width:100%;line-height:1.6;"><div>${pos + 1}.</div><div style="overflow-wrap:break-word;  line-spacing:2px; text-indent:10px;">${question}</div></div>`;
@@ -670,26 +684,29 @@ function render(chosen){
 	
 	startTimer(allocatedTime * 60);									//allocate time for the test and start reading in countdown fashion
 }
+
 start.addEventListener("click", () => {chooseQuest(subject);})	//use the subject chosen
+
 function chooseQuest(subj){
 	switch(subj){
-		case "English Language":
+		case "ENGLISH LANGUAGE":
 			render(qEnglish);
 			break;
-		case "Mathematics":
+		case "MATHEMATICS":
 			render(qMaths);
 			break;
-		case "Computer Studies":
+		case "COMPUTER STUDIES":
 			render(qComputer);
 			break;
-		case "Basic Technology":
+		case "BASIC TECHNOLOGY":
 			render(qBasicTech);
 			break;
-		case "Basic Science":
+		case "BASIC SCIENCE":
 			render(qBasicScience);
 			break;
 	}
 };
+
  //this supplies the questions to the display area subsequently
 function displayQuestion(sign){
 	sign == "-"? pos-- : pos++;		//the sign controls the next and previous buttons
@@ -700,19 +717,19 @@ function displayQuestion(sign){
 	optionD = quesList[pos][4];
 	displayArea.style.setProperty("align-items","flex-start");
 	displayArea.style.setProperty("justifity-content","flex-start");
-	displayArea.style.setProperty("padding-top","40px");
+	displayArea.style.setProperty("padding-top","30px");
 	displayArea.style.setProperty("font-weight","bold");
 	displayArea.innerHTML = "";
-	if(subject == "English Language"){
+	if(subject == "ENGLISH LANGUAGE"){
 		switch(pos){			//pass in the corresponding instructions at each section for English only
 			case 10:
-				displayArea.innerHTML = `<p style="font-style:italic; font-weight:light;">For questions 11 to 18, choose the option that <span style="font-style:normal; font-weight:bolder;">best completes</span> each of the following sentences</p><br>`;
+				displayArea.innerHTML = `<p style="font-style:italic; font-weight:light; margin-bottom:8px;">For questions 11 to 18, choose the option that <span style="font-style:normal; font-weight:bolder;">best completes</span> each of the following sentences</p><br>`;
 				break;
 			case 18:
-				displayArea.innerHTML = `<p style="font-style:italic; font-weight:light;">For questions 19 to 26, choose the option that is <span style="font-style:normal; font-weight:bolder;">nearest in meaning</span> to the underlined word as it is used in the sentence</p><br>`;
+				displayArea.innerHTML = `<p style="font-style:italic; font-weight:light; margin-bottom:8px;">For questions 19 to 26, choose the option that is <span style="font-style:normal; font-weight:bolder;">nearest in meaning</span> to the underlined word as it is used in the sentence</p><br>`;
 				break;
 			case 26:
-				displayArea.innerHTML = `<p style="font-style:italic; font-weight:light;">For questions 27 to 30, choose the option that <span style="font-style:normal; font-weight:bolder;">best completes</span> each of the following sentences</p><br>`;
+				displayArea.innerHTML = `<p style="font-style:italic; font-weight:light; margin-bottom:8px;">For questions 27 to 30, choose the option that <span style="font-style:normal; font-weight:bolder;">best completes</span> each of the following sentences</p><br>`;
 				break;
 		}	
 	}
@@ -727,6 +744,7 @@ function displayQuestion(sign){
 	}
 	page.innerHTML = "\t\t"+(pos+1)+"\t\tof\t\t"+quesList.length+"\t\t"; 
 }
+
 next.addEventListener("click",function(){
 	if (pos < quesList.length) {		//as long as there are still questions to be answered, move
 		let error = document.querySelector("#error");
@@ -750,6 +768,7 @@ next.addEventListener("click",function(){
 		send.style.display = "block";		//ok this is the last question, then the submit button appears, waiting to be clicked to submit
 	}
 });
+
 prev.addEventListener("click", function() {
 	if (pos > 0) {					//as long as there are still more behind,
 		displayQuestion("-");		//go back to the previous question
@@ -764,6 +783,7 @@ prev.addEventListener("click", function() {
 	send.style.display = "none";
 	
 });
+
 function startTimer(duration){
 	let timer = document.querySelector(".timer");
 	let hour = 0;

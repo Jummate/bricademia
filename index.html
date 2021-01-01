@@ -17,8 +17,8 @@
 		</div>
 		<!-- ****Portfolio**** -->
 		<div id="show-portfolio" style="display: none;">
-			<p>These are some of the simple projects the developer has carried out. Kindly take some time out to check through</p><br>
-			<ul style="margin-left:6px;">
+			<p style="line-height:2.0;">These are some of the simple projects the developer has carried out. Kindly take some time out to check through.</p><br>
+			<ul class="about-developer">
 				<li><a href="https://jummate.github.io/TimerClock" title="Timer Clock">Timer Clock</a></li>
 				<li><a href="https://jummate.github.io/BMICalculator" title="BMI Calculator">Body Mass Index Calculator</a></li>
 				<li><a href="https://jummate.github.io/ImageSlider" title="Image Slider">Image Slider</a></li>
@@ -27,8 +27,8 @@
 		</div>
 		<!-- ****Contact**** -->
 		<div id="show-contact" style="display: none;">
-			<p>You can always get in touch with the developer through the following media:</p><br>
-			<ul>
+			<p style="line-height:2.0;">You can always get in touch with the developer through the following media:</p><br>
+			<ul class="about-developer">
 				<li><span class="social">Whatsapp/Call:</span><span class="dev-contact">+2347067896279</span></li>
 				<li><span class="social">Email:</span><span class="dev-contact">jumatyakub@gmail.com</span></li>
 				<li><span class="social">Telegram:</span><span class="dev-contact">+2347067896279</span></li>
@@ -68,17 +68,15 @@
 				<!-- The display area of the app -->
 				<div class="cont-portal-body">
 					<section id="subject-option">
-						<label for="allsubject"><h2>Please select a subject:</h2></label>
-						<select name="subject" id="allsubject">
-							<option value=""></option>
-							<option value="English Language">English Language</option>
-							<option value="Mathematics">Mathematics</option>
-							<option value="Computer Studies">Computer Studies</option>
-							<option value="Basic Science">Basic Science</option>
-							<option value="Basic Technology">Basic Technology</option>
-						</select>
+						<div id="choose-subject"><span>Please select a subject:</span><span class="arrow">↓</span></div>
+						<ul id="subject">
+							<li>BASIC SCIENCE</li>
+							<li>MATHEMATICS</li>
+							<li>BASIC TECHNOLOGY</li>
+							<li>ENGLISH LANGUAGE</li>
+							<li>COMPUTER STUDIES</li>
+						</ul>
 					</section>
-					<button id="subjectConfirm" class="btn-action">Submit Selection</button>
 					<button id="start" class="btn-action">Start Test</button>
 				</div>
 				<span id="error">***You have not selected an answer***</span>	<!-- This displays the error -->
