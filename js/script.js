@@ -52,7 +52,7 @@ const qEnglish = [
 	["He came to the _________ only two years ago when he won a gold medal.",
 	"show","front","limelight","position","C"],
 
-	["The Road Safety officials wil soon be _________ by the government to carry guns.",
+	["The Road Safety officials will soon be _________ by the government to carry guns.",
 	"authorized","expected","invited","approved","A"],
 
 	["The sale of certain drugs is <span style='text-decoration:underline;'>restricted</span> to adults.",
@@ -98,7 +98,7 @@ const qMaths = [
 	["Evaluate 11011<sub>two</sub> + 11110<sub>two</sub>",
 	"111010<sub>two</sub>","111001<sub>two</sub>","110001<sub>two</sub>","101001<sub>two</sub>","B"],
 	
-	["Let Ư = {1,2,3,4, ..., 10},<br>A = {odd numbers up to 9} and<br>B = {numbers less than 7}.<br><br>Find A ᴜ Ư",
+	["Let U = {1,2,3,4, ..., 10},<br>A = {odd numbers up to 9} and<br>B = {numbers less than 7}.<br><br>Find A ᴜ U",
 	"{1,2,3,4,5,6,7,8,9,10}","{1,2,3,4,5,6,7,9}","{1,3,5,7,8,9,10}","{1,2,3,4,10}","A"],
 
 	["Evaluate (3√3-√6)(√6+3√3)",
@@ -113,7 +113,7 @@ const qMaths = [
 	["Find the 6th term of the Geometric Progression (G.P) -108, -36, -12, ....",
 	"2<small>1/4</small>","4/9","-4/9", "-1<small>1/3</small>", "C"],
 	
-	["Given that ¼log<sub><small>10</small></sub> = 10<sup><small>0</small></sup>. Find the value of M",
+	["Given that ¼log<sub><small>10</small></sub> M = 10<sup><small>0</small></sup>. Find the value of M",
 	"10000","1000","4", "10", "A"],
 	
 	["Th sum of an Arithmetic Progression(A.P.) is 561. If the first and last terms are 2 and 100 respectively, find the number of terms",
@@ -494,10 +494,17 @@ let cancel = document.querySelector("#cancel");
 
 let chooseSubject = document.querySelector("#choose-subject");
 let subjectOptions = document.querySelector("#subject");
+let reTake = document.querySelector("#retake");
 
 let selectionArea = document.querySelector("#subject-option");
 let allocatedTime = 0;
 
+//users can retake the test
+reTake.addEventListener("click", () => {
+	document.querySelector("#ctn-retake").style.display = "none";
+	render(quesList);
+	
+})
 //this shows the developer's portfolio on the DOM
 function showPortfolio(tag){
 	displayArea.innerHTML = displayPortfolio.innerHTML;		//transfer the whole content of the portfolio section on the DOM to the display area
@@ -539,9 +546,10 @@ okay.addEventListener("click", () => {
 	displayArea.innerHTML= `<p>You answered ${result} of ${quesList.length} questions correctly.</p><br><br>`;
 	displayArea.innerHTML+= `<p>Your score is <span style="font-size:1.5rem; font-weight:bolder;">${percent}%</span></p>`;
 	document.querySelector("nav").style.visibility = "hidden";
+	document.querySelector("#ctn-retake").style.display = "block";
 	document.querySelector("#confirmation").style.visibility = "hidden";
 	prev.style.visibility = "hidden";
-	send.style.display = "none"
+	send.style.display = "none";
 	});
 
 menu.addEventListener("click", () => {				//hide and display the menu bar
@@ -629,12 +637,13 @@ function displayResult(){
 function submitWithout(){
 	error.style.display = "none";
 	let result = displayResult();
-	let percent = ((result/quesList.length)*100).toFixed(1);
+	let percent = Math.round((result/quesList.length)*100);
 	displayArea.style.setProperty("align-items","center");
 	displayArea.style.setProperty("padding-bottom","0px");
 	displayArea.style.setProperty("padding-left","0px");
 	displayArea.innerHTML= `<p>You answered ${result} of ${quesList.length} questions correctly.</p><br><br>`;
 	displayArea.innerHTML+= `<p>Your score is <span style="font-size:1.5rem; font-weight:bolder;">${percent}%</span></p>`;
+	document.querySelector("#ctn-retake").style.display = "block";
 	document.querySelector("nav").style.visibility = "hidden";
 	prev.style.visibility = "hidden";
 	send.style.display = "hidden";
@@ -807,7 +816,15 @@ function startTimer(duration){
 			min = min < 10 ? "0"+ min : min;
 			sec = sec < 10 ? "0"+ sec : sec;
 			timer.innerHTML = `${hour}:${min}:${sec}`;
-			if(x == 0 && !submitted) submitWithout();		//when the time is up and the user has not submitted, submit for the user
+			if(x == 0 && !submitted){
+				submitWithout();			//when the time is up and the user has not submitted, submit for the user
+				clearTimeout(timeOut);
+			}
+			else if(submitted){
+				clearTimeout(timeOut);
+				timer.classList.add("end");	
+				timer.innerHTML = "00:00:00";
+			}
 		}, (duration - x)*1000);							//since this is a countdown timer, subtract the current value of x from the time allocated to
 															//determine how long it will wait to be executed
 	}
