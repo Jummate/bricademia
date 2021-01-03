@@ -1,5 +1,71 @@
 
 // ------------------------Available Subjects--------------------------------------------------
+
+const qDSA = [
+	["A graph is a collection of nodes, called _____ and line segments called arcs or ______ that connect pair(s) of nodes.",
+	"vertices, paths","vertices, edges","graph node, edges","edges, vertices","B"],
+	
+	["In ________, searching starts at the beginning of the list and checks every element in the list.",
+	"Binary search","Heap search","Linear search","Binary Tree search","C"],
+	
+	["In the _________ traversal, we process all of vertex's descendants before we move to an adjacent vertex.",
+	"Breadth-First","Root-First","Node-First","Depth-First","D"],
+	
+	["Which of these data structure is suitable for representation of hierarchical relationship between elements?",
+	"Graph","Trees","Stack","Queue","B"],
+	
+	["Which of the following data structure is linear?",
+	"Binary Tree","Trees","Linked List","Graph","C"],
+	
+	["________ is a pile in which items are added at one end and removed from the othe other.",
+	"Array","Queue","Stack","List","B"],
+	
+	["The number of comparisons done by sequential search is ______",
+	"(N/2)+1","(N+1)/2","(N-1)/2","(N-2)/2","B"],
+	
+	["_______ operation can not be performed on Queue.",
+	"Trasversal","Deletion","Insertion","Retrieval","A"],
+	
+	["Which of the following sorting algorithm is the slowest?",
+	"Shell sort","Merge sort","Heap sort","Bubble sort","D"],
+	
+	["Which of the following data structure can be used to represent many-to-many relation?",
+	"B-Tree","Graph","Binary Tree","All of the above","B"],
+	
+	["Which of the following data structure is more appropriate to represent a heap?",
+	"Two-dimensional array","Doubly Linked List","Linear Array","Linked List","C"],
+	
+	["Minimum number of fields in each node of a doubly linked list is _______",
+	"5","2","3","4","C"],
+	
+	["A graph is a tree if and only if graph  ______",
+	"is a Directed Graph","contains no cycles","is planar","is completely connected","B"],
+	
+	["Which of the following is not divide-and-conquer approach?",
+	"Merge sort","Insertion sort","Shell sort","Quick sort","B"],
+	
+	["Visiting root node after visiting left and right sub-trees is called _______",
+	"In-oder Trasversal","Pre-order Trasversal","Post-order Trasversal","Order Trasversal","C"],
+	
+	["What about recursion is true in comparison with iteration?",
+	"very expensive in terms of memory","low performance","every recursive program can be written with iteration too.","all of the above","D"],
+	
+	["In binary heap, whenever the root is removed then the rightmost element of last level is replaced by the root. Why?",
+	"it is the easiest posible way.","to make sure that it is still a complete binary tree","because left and right subtree might be missing.","None of the above","B"],
+	
+	["In doubly linked lists _______",
+	"a pointer is maintained to store both next and previous nodes.","two pointers are maintained to store next and previous nodes","a pointer to self is maintained for each node","none of the above","B"],
+	
+	["If there's no base case in a recursive program, the program will ________",
+	"not be executed.","execute until all conditions are met","execute inifinitely","obtain progresive approach.","C"],
+	
+	["A pivot element to partition unsorted list is used in ________",
+	"Merge sort","Insertion sort","Selection sort","Quick sort","D"],
+	
+	["A stable sorting algorithm does not _________",
+	"crash","run out of memory","change the sequence of appearance of elements","exist","C"]
+			
+			]
 const qEnglish = [
 	["Our instructor gave us the impression that the problem was <span style='text-decoration:underline;'>complicated</span> but we found it ________",
 	"light","mysterious","simple","hard","C"],
@@ -465,6 +531,7 @@ const qComputer = [
 	];
 	
 // ---------------------------------------------------------------------------------------------------------------------------------
+
 let pos = 0;
 let question;
 let optionA;
@@ -502,7 +569,30 @@ let allocatedTime = 0;
 //users can retake the test
 reTake.addEventListener("click", () => {
 	document.querySelector("#ctn-retake").style.display = "none";
-	render(quesList);
+	displayArea.style.setProperty("align-items","flex-start");
+	displayArea.style.setProperty("padding-left","10px");
+	pos = 0;
+	next.style.display = "initial";
+	switch(subject){
+		case "ENGLISH LANGUAGE":
+			render(qEnglish);
+			break;
+		case "MATHEMATICS":
+			render(qMaths);
+			break;
+		case "COMPUTER STUDIES":
+			render(qComputer);
+			break;
+		case "BASIC TECHNOLOGY":
+			render(qBasicTech);
+			break;
+		case "BASIC SCIENCE":
+			render(qBasicScience);
+			break;
+		case "DATA STRUCTURE AND ALGORITHM":
+			render(qDSA);
+			break;
+	}
 	
 })
 //this shows the developer's portfolio on the DOM
@@ -536,10 +626,10 @@ contact.forEach(element => {
 cancel.addEventListener("click", () => {document.querySelector("#confirmation").style.visibility = "hidden";})	//give the user a chance to reconsider
 
 okay.addEventListener("click", () => {
-	clearTimeout(timeOut);									//stop the timer
+	clearInterval(timeOut);									//stop the timer
 	let result = displayResult();							//compute the result of the just concluded test
 	submitted = true;										//the user has submitted and seen the results
-	let percent = ((result/quesList.length)*100).toFixed(1);	//compute the percent to 1 decimal place
+	let percent = Math.round((result/quesList.length)*100);	//compute the percent to 1 decimal place
 	displayArea.style.setProperty("align-items","center");		//re-adjust the display area to center the content
 	displayArea.style.setProperty("padding-bottom","0px");
 	displayArea.style.setProperty("padding-left","0px");
@@ -561,7 +651,6 @@ menu.addEventListener("click", () => {				//hide and display the menu bar
 		menuBar.style.display = "none";				//hide it
 		pressMenu = true;
 	}
-	
 })
 
 addEventListener("click", event => {		//Alternative to using the menu button to hide the menu bar
@@ -661,7 +750,7 @@ send.addEventListener("click",() => {
 
 //this always renders or displays the first questions, in fact it initiates the test
 function render(chosen){
-	quesList = chosen;				//refer to the chosen subject
+	quesList = chosen.map(arr => arr.slice());				//refer to the chosen subject
 	question = quesList[pos][0];
 	optionA = quesList[pos][1];
 	optionB = quesList[pos][2];
@@ -712,6 +801,9 @@ function chooseQuest(subj){
 			break;
 		case "BASIC SCIENCE":
 			render(qBasicScience);
+			break;
+		case "DATA STRUCTURE AND ALGORITHM":
+			render(qDSA);
 			break;
 	}
 };
@@ -798,34 +890,22 @@ function startTimer(duration){
 	let hour = 0;
 	let min = 0;
 	let sec = 0;
-	for(let x = duration; x >= 0; x--){
-		timeOut = setTimeout(function(){
-			sec = x % 60;
-			min = Math.floor(x/60);
-			if(min % 60 == 0){
-				min = 0;
-			}
-			else{
-				min = min % 60;
-			}
-			hour = Math.floor(x/3600);
-			if(x < 30){
-				timer.classList.add("end");		//change the color of the timer
-			}
-			hour = hour < 10 ? "0"+ hour : hour;
-			min = min < 10 ? "0"+ min : min;
-			sec = sec < 10 ? "0"+ sec : sec;
-			timer.innerHTML = `${hour}:${min}:${sec}`;
-			if(x == 0 && !submitted){
-				submitWithout();			//when the time is up and the user has not submitted, submit for the user
-				clearTimeout(timeOut);
-			}
-			else if(submitted){
-				clearTimeout(timeOut);
-				timer.classList.add("end");	
-				timer.innerHTML = "00:00:00";
-			}
-		}, (duration - x)*1000);							//since this is a countdown timer, subtract the current value of x from the time allocated to
-															//determine how long it will wait to be executed
-	}
+	let x = duration;
+	timeOut = setInterval(() => {
+				sec = x % 60;
+				min = Math.floor(x/60);
+				min = min % 60 == 0 ? 0 : min % 60;
+				hour = Math.floor(x/3600);
+				
+				hour = hour < 10 ? "0"+ hour : hour;
+				min = min < 10 ? "0"+ min : min;
+				sec = sec < 10 ? "0"+ sec : sec;
+				if(x == 0 && !submitted){
+					submitWithout();			//when the time is up and the user has not submitted, submit for the user
+					clearInterval(timeOut);		//stop the timer
+				}
+				if(x < 30) timer.classList.add("end");		//change the color of the timer
+				timer.innerHTML = `${hour}:${min}:${sec}`;
+				x--;
+			}, 1000);
 }
