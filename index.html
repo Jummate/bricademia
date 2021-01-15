@@ -8,8 +8,28 @@
 	</head>
 	<body>
 		<!-- *******************************Hidden Parts************************************* -->
-		
-		
+		<!-- ************Performance Chart********** -->
+		<div id="ctn-outer-status" style="display:none; width:60px; height:30px;">
+			<div  id="ctn-main-status">
+				<!-- *******Chart showing the performance in the test******* -->
+				<div id="ctn-status">
+					<div id="correct" style="height:100%; background-color:green;">
+					</div>
+					<div id="wrong" style="height:100%; background-color:red;">
+					</div>
+				</div>
+				<!-- ******Legend******* -->
+				<div id="ctn-legend">
+					<div style="text-align:left; margin-bottom:10px;">
+						<span style="background-color:green; color:green; border-radius:50%;">......</span> Correct
+					</div>
+					<div style="text-align:left";>
+						<span style="background-color:red; color:red; border-radius:50%;">......</span> Wrong
+					</div>
+
+				</div>
+			</div>
+		</div>
 		<!-- *******Menu Bar******* -->
 		<div id="menu-bar">
 			<p class="home">Home</p>
@@ -68,7 +88,9 @@
 				</div>
 				<!-- The display area of the app -->
 				<div class="cont-portal-body">
+					
 					<section id="subject-option">
+						
 						<div id="choose-subject"><span>Please select a subject:</span><span class="arrow">↓</span></div>
 						<ul id="subject">
 							<li>BASIC SCIENCE</li>

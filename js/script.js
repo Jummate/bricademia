@@ -596,7 +596,7 @@ reTake.addEventListener("click", () => {
 	
 })
 //this shows the developer's portfolio on the DOM
-function showPortfolio(tag){
+function showPortfolio(){
 	displayArea.innerHTML = displayPortfolio.innerHTML;		//transfer the whole content of the portfolio section on the DOM to the display area
 	menuBar.style.display = "none";
 }
@@ -629,11 +629,17 @@ okay.addEventListener("click", () => {
 	clearInterval(timeOut);									//stop the timer
 	let result = displayResult();							//compute the result of the just concluded test
 	submitted = true;										//the user has submitted and seen the results
-	let percent = Math.round((result/quesList.length)*100);	//compute the percent to 1 decimal place
+	let percent = Math.round((result/quesList.length)*100);	//compute the percent (correct answers) to a whole number
 	displayArea.style.setProperty("align-items","center");		//re-adjust the display area to center the content
 	displayArea.style.setProperty("padding-bottom","0px");
 	displayArea.style.setProperty("padding-left","0px");
-	displayArea.innerHTML= `<p>You answered ${result} of ${quesList.length} questions correctly.</p><br><br>`;
+	document.querySelector("#correct").style.width = `${percent}%`;
+	document.querySelector("#wrong").style.width = `${100 - percent}%`;		//compute the percent(wrong answers)
+	const outerContainer = document.body.removeChild(document.querySelector("#ctn-outer-status"));		//remove and place the chart at the required location
+	outerContainer.style.display ="block";																//show the performance chart
+
+	displayArea.innerHTML = outerContainer.innerHTML;
+	displayArea.innerHTML += `<p>You answered ${result} of ${quesList.length} questions correctly.</p><br><br>`;
 	displayArea.innerHTML+= `<p>Your score is <span style="font-size:1.5rem; font-weight:bolder;">${percent}%</span></p>`;
 	document.querySelector("nav").style.visibility = "hidden";
 	document.querySelector("#ctn-retake").style.display = "block";
@@ -730,7 +736,14 @@ function submitWithout(){
 	displayArea.style.setProperty("align-items","center");
 	displayArea.style.setProperty("padding-bottom","0px");
 	displayArea.style.setProperty("padding-left","0px");
-	displayArea.innerHTML= `<p>You answered ${result} of ${quesList.length} questions correctly.</p><br><br>`;
+	
+	document.querySelector("#correct").style.width = `${percent}%`;
+	document.querySelector("#wrong").style.width = `${100 - percent}%`;
+	const outerContainer = document.body.removeChild(document.querySelector("#ctn-outer-status"));
+	outerContainer.style.display ="block";
+
+	displayArea.innerHTML = outerContainer.innerHTML;
+	displayArea.innerHTML += `<p>You answered ${result} of ${quesList.length} questions correctly.</p><br><br>`;
 	displayArea.innerHTML+= `<p>Your score is <span style="font-size:1.5rem; font-weight:bolder;">${percent}%</span></p>`;
 	document.querySelector("#ctn-retake").style.display = "block";
 	document.querySelector("nav").style.visibility = "hidden";
@@ -750,7 +763,7 @@ send.addEventListener("click",() => {
 
 //this always renders or displays the first questions, in fact it initiates the test
 function render(chosen){
-	quesList = chosen.map(arr => arr.slice());				//refer to the chosen subject
+	quesList = chosen.map(arr => arr.slice());				//make a deep copy of the chosen subject
 	question = quesList[pos][0];
 	optionA = quesList[pos][1];
 	optionB = quesList[pos][2];
