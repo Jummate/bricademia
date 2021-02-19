@@ -205,6 +205,23 @@ main{
 	list-style:none;
 	cursor:pointer;
 }
+/* -----------styles added to sublists of subjects------*/
+.sublist{
+	background-color:#151B38;
+	color:#fff;
+	margin-bottom:12px;
+	width:80%;
+	margin:20px auto;
+	padding:12px;
+	border-radius:7px;
+	text-align:center;
+	list-style:none;
+	cursor:pointer;
+}
+.sublist:hover{
+	background-color:#F6A600;
+}
+/* styles added to sublists of subjects */
 #subject{
 	display:none;
 	width:80%;
@@ -258,6 +275,7 @@ input{
 	background-color: #DCDCDC;
 	color:#151B38;
 }
+
 #error{
 	font-style:italic;
 	color:red;

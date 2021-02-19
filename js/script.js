@@ -157,7 +157,7 @@ const qEnglish = [
 	["The team was to leave Lagos _________ Accra at 4.15 a.m. on Tuesday.",
 	"for","to","from","by","A"],
 ];
-const qMaths = [
+const qMathsSenior = [
 	["Express 10000800 in standard form.",
 	"1.00008 x 10<sup>7</sup>","1.00008 x 10<sup>5</sup>","1.00008 x 10<sup>2</sup>", "1.00008 x 10<sup>-7</sup>", "A"],
 
@@ -345,7 +345,13 @@ const qBasicScience = [
 	["The ratio of work output of a machine to the work input is known as _______",
 	"efficiency","revolution","friction","workdone","A"]
 	];
+const qPython = [
+	["Which of the following is a valid identifier?",
+	"12age","_age","Age-Mike","-age56","B"],
 	
+	["x = 3<br>x += 5<print(x)<br> What will be the output of the program above",
+	"12age","_age","Age-Mike","-age56","B"],
+]	
 	
 const qBasicTech = [
 	["Which of these is not a pure metal?",
@@ -529,10 +535,206 @@ const qComputer = [
 	["The following are programming languages except ______"
 	,"Java","JavaScript","Python","PowerPoint","D"]
 	];
+
+const qMathsJunior = [
+	["Over the weekend, Dare walked 85.5km. Her Dad walked 350m further than her. What is the total distances walked by them?"
+	,"85.8km","85.85km","858.5km","171.35km","B"],
 	
+	["Find the least possible whole number which must be added to 81, so that it can be divided exactly by 7."
+	,"31","34","17","3","D"],
+	
+	["When a number is divided by 4, the result is 15. Find 2/3 of that number."
+	,"43","40","22","60","B"],
+	
+	["Find the circumference of a circle when area is 154cm<sup>2</sup> . π = 22/7."
+	,"132cm","66cm","55cm","44cm","D"],
+	
+	["Simplify 2/4 x ¼ + ½"
+	,"5/8","¾","1/3","½","A"],
+	
+	["Find 6½% of ₦600.00"
+	,"₦3900.00"  ,"₦78.00","₦72.00","₦39.00","D"],
+	
+	["A dress was sold for ₦120.00. If the profit percent was 50%, how much did the dress cost?"
+	,"₦50.00","₦160.00","₦80.00","₦60.00","D"],
+	
+	["The average of 30 students in a Mathematics test is 6. If 28 out of these students score a sum of 160 marks, find the average mark of the two remaining students."
+	,"20"  ,"10","6","4","B"],
+	
+	["A coin has a circumference of 3cm. How many revolutions will it take to cover a distance of 120cm? "
+	,"360","132","171","90","D"],
+	
+	["A cylindrical bottle is filled with a liquid. The volume of the liquid is 11000cm3.  If the height of the bottle is 35cm, what is the radius of the bottle (Take  π = 22/7)."
+	,"22cm","100cm","770cm","77000cm","B"],
+	
+	["Five years ago, Kunle’s age was one-fifth of the mother’s age. If his mother is now 50 years, how old is Kunle now?"
+	,"15years","14years","13years","20years","B"],
+	
+	["A man spent 5/8 of his salary on food and 2/5 of the remainder on clothes. What fraction of his salary is left?"
+	,"21/40","9/40","17/30","½","A"],
+	
+	["An empty tipper weighed 900kg. When half full of sand, it weighed 15 tonnes, 280kg. What will it weigh when full?"
+	,"27t, 780kg","30t, 560kg","28t, 760kg","29t, 660kg","D"],
+	
+	["Find the value of 1/√9 – 1/√16."
+	,"5/6","13/36","1/6","1/12","D"],
+	
+	["A rectangle and a square have the same perimeter. The rectangle of length 12cm has an area of 96cm<sup>2</sup>. Find the length of the square."
+	,"5cm","8cm","10cm","120cm","C"],
+	
+	["The sum of three consecutive odd numbers is 45. What is the difference between the highest and the lowest number?"
+	,"7","6","5","4","B"],
+	
+	["If the cube of a positive number is half of the square of the same number. Then, what is the number?"
+	,"½","2/5","1/6","5/8","A"],
+	
+	["Ojo and Mathew shared some oranges in the ratio 3:5. If Ojo had 15 oranges, how many oranges were shared?"
+	,"25","30","40","45","C"],
+	
+	["<img src='images/exam_img.jpg' alt='Triangle Inside Square'><br />If ABCD above is a square, find the area of the shaded region."
+	,"64cm<sup>2</sup>","40cm<sup>2</sup>","32cm<sup>2</sup>","20cm<sup>2</sup>","C"],
+	
+	["Simplify 0.024 x 2.4 / 0.12 x 0.28"
+	,"0.002","0.02","0.2","2","D"],
+	
+	["How many litres of oil can fill a tank dimension 15cm by 10cm by 12cm?"
+	,"1.8","18","180","1800","A"],
+	
+	["Find the cost of 7 articles, if 4 of such articles cost ₦324.00"
+	,"₦576.00","₦567.00","₦504.00","₦331.00","B"],
+	
+	["<img src='images/angleatapoint.jpg' alt='Angle at a Point'><br />Find the value of x in the diagram above."
+	,"30°","45°","60°","70°","C"],
+	
+	["A rope is 1km long. How many shorter ropes each of 50cm long can be cut from the rope?"
+	,"2","20","200","2000","D"],
+	
+	["<img src='images/planeshape.jpg' alt='Plane Shape'><br />Calculate the area of the entire shape above."
+	,"72cm<sup>2</sup>","96cm<sup>2</sup>","71cm<sup>2</sup>","60cm<sup>2</sup>","C"],
+	
+	["<img src='images/isosceles.jpg' alt='Isosceles Triangle'><br />In the diagram above /AB/ = /AD/, find x"
+	,"72°","18°","108°","54°","D"],
+	
+	["Express a speed of 20m/s in km/hr."
+	,"120km/hr","100km/hr","90km/hr","72km/hr","D"],
+	
+	["If 800m is increased to 1km, in what ratio has it been increased?"
+	,"4:1","5:4","800:1","8:1","B"],
+	
+	["Find the number that must be added to 40% of 225 to give 200."
+	,"290","190","110","90","C"],
+	
+	["12 boys can dig a hole in 25 days. How long will it take 15 boys take to do it?"
+	,"25days","20days","15days","10days","B"],
+	
+	["Factorise: 12p<sup>2</sup>q - 9q<sup>2</sup>"
+	,"3(4<sup>2</sup> - 3q)","pq(4p<sup>2</sup> - 3q)","pq(12p - 9q)","3q(4p<sup>2</sup> - 3q)","D"],
+	
+	["The bearing of a town Q from a town P is 045°. Find the bearing of P from Q."
+	,"090°","135°","180°","225°","D"],
+	
+	["If the average of 5,8,b,9 and 4 is 7. Find the value of b."
+	,"9","8","7","5","A"],
+	
+	["If x is an acute angle and tan x = 5/12, evaluate sin x."
+	,"5/13","5/12","12/13","11/12","A"],
+	
+	["Which of the following are Pythagorean triples?<br>I. (3,4,5)	II. (5,12,13)	III. (8,13,17)"
+	,"I only","II only","I and II only","II and III only","C"],
+	
+	["A cone is 8cm high and has base diameter of 12cm. Its slant height is ........"
+	,"6cm","8cm","10cm","12cm","C"],
+	
+	["Evaluate 0.6721 x 0.0261 and express your answer in standard form."
+	,"1754 x 10<sup>4<sup>","1754 x 10<sup>-3<sup>","1.754 x 10<sup>-3<sup>","1.754 x 10<sup>-2<sup>","D"],
+	
+	["P = {prime numbers less than 20} and Q = {odd numbers less than 10}. Find P ∩ Q"
+	,"{2,3}","{1,3,5,7,11}","{3,5,7,9}","{3,5,7}","D"],
+	
+	["Convert 104<sub>ten</sub> to a binary numeral"
+	,"1101000","1010100","1101100","1011010","A"],
+	
+	["What is the HCF of 48,30 and 18?"
+	,"2","3","5","6","D"],
+	
+	["Express 34m 5cm 6mm in millimetres"
+	,"342506 mm","34056 mm","30456 mm","34565 mm","C"],
+	
+	["Write 356.07 in standard form"
+	,"35.607 x 10","35.607 x 10<sup>2</sup>","3.5607 x 10<sup>2</sup>","3.5607 x 10<sup>-2</sup>","C"],
+	
+	["What is the rule for the mapping below?<br /><img src='images/mapping.jpg' alt='Mapping Image'/>"
+	,"y = 2x + 2","y = 2<sup>x</sup>","y = x + 2","y = x + 1","B"],
+	
+	["Solve 4x - 6 < -2"
+	,"x < 1","x > 1","x < -1","x > -1","A"],
+	
+	["In a school, 80 pupils wrote an examination and 64 of them passed. What is the percentage of pupils who passed?"
+	,"8%","16%","20%","80%","D"],
+	
+	["The interior angle of a regular polygon is 120°. How many sides has the polygon?"
+	,"3","4","5","6","D"],
+	
+	["Kofi throws a die. What is the probability that he throws the number 2?"
+	,"1","2/3","1/6","1/2","C"],
+	
+	["<img src='images/triangle.jpg' alt='A Triangle'/><br />Find the value of <strong>P</strong> in the diagram above."
+	,"110","90","70","40","D"],
+	
+	["Make <em>a</em> subject of the the relation P = 2(a + b)"
+	,"a = (P-2b)/2","a = (P+2b)/2","a = (2b-P)/2","a = (P-2b)/2","A"],
+	
+	["What is the value of x in relation	5<sup>x</sup> = 125?"
+	,"2","3","4","5","B"],
+	
+	["Calculate the length of QR in triangle PQR below<br /><img src='images/triangle2.jpg' alt='A Triangle'/>"
+	,"11","14","16","17","B"],
+	
+	["Five cards are numbered 1 to 5. A card is picked at random. What is the probability that it has an even number?"
+	,"1","4/5","3/5","2/5","D"],
+	
+	["The ages (in years) of 8 boys are: 14, 14.5, 12, 11.5, 13, 10.5, 13.5"
+	,"14","13","12","11","B"],
+	
+	["Convert 133<sub>five</sub> to base ten numeral"
+	,"23","25","41","43","D"],
+	
+	["Find the simple interest on $15,000.00 at rate of 20% per annum for 5 years."
+	,"$10,000","$15,000","$30,000","$50,000","B"],
+	
+	["Find the difference between (2d)<sup>2</sup> and 2d<sup>2</sup> when d = 2"
+	,"16","18","24","28","B"],
+	
+	["The heights of two boys are in the ratio 4:5. The shorter boy is 80cm. What is the height of the taller boy?"
+	,"100cm","150cm","164cm","180cm","A"],
+	
+	["Factorise completely 5xy + 10ny"
+	,"5y(x + n)","5y(x + 2n)","5xy(1 + 2n)","5(xy + 2ny)","B"],
+	
+	["If 13x - 12 = 5x + 60, find x."
+	,"-9","-6","6","9","D"],
+	
+	["The length of a spring when a mass of n kg is hung on it is L = (74 + 15n) mm. What is the length of the spring when a mass of 1.2kg is hanged on it?"
+	,"75.20 mm","89.00 mm","92.00 mm","97.00 mm","C"],
+	
+	["In the figure below, triangle ABC is an enlargement of triangle ADE. If |AE| = 20cm and |EC| = 10cm. What is the scale factor of the enlargement?<br /><img src='images/triangle3.jpg' alt='A Triangle'/>"
+	,"1/2","3/2","2","3","B"],
+	
+	["<img src='images/anglebtwlines.jpg' alt='Angles between lines'/><br />The angles a and b in the figure above are"
+	,"corresponding","interior opposite","vertically opposite","alternate","A"],
+	
+	["A man travelled a distance of 1.2km in 30 minutes. What distance can he cover in 55 minutes travelling at the same speed?"
+	,"1.375 km","2.02 km","2.2 km","12.02 km","C"],
+	
+	["<img src='images/anglesinpolygon.jpg' alt='Angles in a polygon'/><br />In the diagram above, triangle ABC is an isosceles triangle. <ABD = 108°. Find the value of y."
+	,"72","60","48","36","D"]
+	
+];
 // ---------------------------------------------------------------------------------------------------------------------------------
 
 let pos = 0;
+let subjTitle;
+let subjChosen;
 let question;
 let optionA;
 let optionB;
@@ -566,6 +768,7 @@ let reTake = document.querySelector("#retake");
 let selectionArea = document.querySelector("#subject-option");
 let allocatedTime = 0;
 
+
 //users can retake the test
 reTake.addEventListener("click", () => {
 	document.querySelector("#ctn-retake").style.display = "none";
@@ -573,12 +776,17 @@ reTake.addEventListener("click", () => {
 	displayArea.style.setProperty("padding-left","10px");
 	pos = 0;
 	next.style.display = "initial";
+	subject = subjChosen;
+	console.log(subject);
 	switch(subject){
 		case "ENGLISH LANGUAGE":
 			render(qEnglish);
 			break;
-		case "MATHEMATICS":
-			render(qMaths);
+		case "senior-maths":
+			render(qMathsSenior);
+			break;
+		case "junior-maths":
+			render(qMathsJunior);
 			break;
 		case "COMPUTER STUDIES":
 			render(qComputer);
@@ -589,8 +797,11 @@ reTake.addEventListener("click", () => {
 		case "BASIC SCIENCE":
 			render(qBasicScience);
 			break;
-		case "DATA STRUCTURE AND ALGORITHM":
+		case "dsa":
 			render(qDSA);
+			break;
+		case "python":
+			render(qPython);
 			break;
 	}
 	
@@ -671,28 +882,63 @@ addEventListener("click", event => {		//Alternative to using the menu button to 
 	}
 });
 
-//show available subject oprions to the users
+//show available subject options to the users
 chooseSubject.addEventListener("click", () => {
 	chooseSubject.style.display = "none";
 	subjectOptions.style.display = "block";
 	subjectOptions.style.animation="slide 0.2s linear normal";
  });
- 
+ let secondTier = Array.from(document.querySelectorAll(".second-tier"));
+ for(let x of secondTier)
+ {
+	 x.classList.add("sublist");
+ }
 subjectOptions.addEventListener("click", event => {
-	subject = event.target.textContent;				//users choose a subject
+	subject = event.target.textContent;
+	subjTitle = subject;				//users choose a subject
+	subjChosen = subject;
 	switch(subject){
 		case "MATHEMATICS":
-			allocatedTime = 40;				//allocate 40 minutes to Mathematics only
+			selectionArea.innerHTML = document.querySelector("#level-maths").innerHTML;
+			break;
+		case "PROGRAMMING":
+			selectionArea.innerHTML = document.querySelector("#programming").innerHTML;
 			break;
 		default:
 			allocatedTime = 20;
+			selectionArea.innerHTML = `You have <span style="font-weight:bolder;">${allocatedTime} minutes</span> for this test.`;
+			start.style.display = "block";
 			break;						// allocate 20 minutes to all other subjects;	
-	}
-	selectionArea.innerHTML = `You have <span style="font-weight:bolder;">${allocatedTime} minutes</span> for this test.`;
-	start.style.display = "block";
+	}	
+});
+addEventListener("click", event => {
+	subject = event.target.id || event.target.textContent;
 	
-})
-
+	switch(subject)
+	{
+		case "junior-maths":
+			subjChosen = subject;
+			allocatedTime = 25;	
+			selectionArea.innerHTML = `You have <span style="font-weight:bolder;">${allocatedTime} minutes</span> for this test.`;
+			start.style.display = "block";
+			break;
+		case "senior-maths":
+			subjChosen = subject;
+			allocatedTime = 40;	
+			selectionArea.innerHTML = `You have <span style="font-weight:bolder;">${allocatedTime} minutes</span> for this test.`;
+			start.style.display = "block";
+			break;
+		case "dsa":
+			
+		case "python":
+			subjChosen = subject;
+			allocatedTime = 35;
+			selectionArea.innerHTML = `You have <span style="font-weight:bolder;">${allocatedTime} minutes</span> for this test.`;
+			start.style.display = "block";
+			break;
+	}
+	
+	});
 addEventListener("click", event => {
 	if(event.target.nodeName == "INPUT"){						//ok. Maybe the tag clicked was input tag
 		event.target.setAttribute("checked",true);			
@@ -770,7 +1016,7 @@ function render(chosen){
 	optionC = quesList[pos][3];
 	optionD = quesList[pos][4];
 	
-	document.querySelector(".subject-title").innerHTML = subject.toUpperCase();
+	document.querySelector(".subject-title").innerHTML = subjTitle.toUpperCase();
 
 	displayArea.style.setProperty("align-items","flex-start");
 	displayArea.style.setProperty("justifity-content","flex-start");
@@ -803,8 +1049,11 @@ function chooseQuest(subj){
 		case "ENGLISH LANGUAGE":
 			render(qEnglish);
 			break;
-		case "MATHEMATICS":
-			render(qMaths);
+		case "senior-maths":
+			render(qMathsSenior);
+			break;
+		case "junior-maths":
+			render(qMathsJunior);
 			break;
 		case "COMPUTER STUDIES":
 			render(qComputer);
@@ -815,8 +1064,11 @@ function chooseQuest(subj){
 		case "BASIC SCIENCE":
 			render(qBasicScience);
 			break;
-		case "DATA STRUCTURE AND ALGORITHM":
+		case "dsa":
 			render(qDSA);
+			break;
+		case "python":
+			render(qPython);
 			break;
 	}
 };
