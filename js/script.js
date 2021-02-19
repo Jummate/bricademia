@@ -1,4 +1,5 @@
 
+let webImage = document.querySelectorAll(".webimage");		//get all images in the questions
 // ------------------------Available Subjects--------------------------------------------------
 
 const qDSA = [
@@ -591,7 +592,7 @@ const qMathsJunior = [
 	["Ojo and Mathew shared some oranges in the ratio 3:5. If Ojo had 15 oranges, how many oranges were shared?"
 	,"25","30","40","45","C"],
 	
-	["<img src='images/exam_img.jpg' alt='Triangle Inside Square'><br />If ABCD above is a square, find the area of the shaded region."
+	[`<img src = ${webImage[0].src} alt='Triangle Inside Square'><br />If ABCD above is a square, find the area of the shaded region.`
 	,"64cm<sup>2</sup>","40cm<sup>2</sup>","32cm<sup>2</sup>","20cm<sup>2</sup>","C"],
 	
 	["Simplify 0.024 x 2.4 / 0.12 x 0.28"
@@ -603,16 +604,16 @@ const qMathsJunior = [
 	["Find the cost of 7 articles, if 4 of such articles cost ₦324.00"
 	,"₦576.00","₦567.00","₦504.00","₦331.00","B"],
 	
-	["<img src='images/angleatapoint.jpg' alt='Angle at a Point'><br />Find the value of x in the diagram above."
+	[`<img src = ${webImage[1].src} alt='Angle at a Point'><br />Find the value of x in the diagram above.`
 	,"30°","45°","60°","70°","C"],
 	
 	["A rope is 1km long. How many shorter ropes each of 50cm long can be cut from the rope?"
 	,"2","20","200","2000","D"],
 	
-	["<img src='images/planeshape.jpg' alt='Plane Shape'><br />Calculate the area of the entire shape above."
+	[`<img src = ${webImage[2].src} alt='Plane Shape'><br />Calculate the area of the entire shape above.`
 	,"72cm<sup>2</sup>","96cm<sup>2</sup>","71cm<sup>2</sup>","60cm<sup>2</sup>","C"],
 	
-	["<img src='images/isosceles.jpg' alt='Isosceles Triangle'><br />In the diagram above /AB/ = /AD/, find x"
+	[`<img src = ${webImage[3].src} alt='Isosceles Triangle'><br />In the diagram above /AB/ = /AD/, find x`
 	,"72°","18°","108°","54°","D"],
 	
 	["Express a speed of 20m/s in km/hr."
@@ -663,7 +664,7 @@ const qMathsJunior = [
 	["Write 356.07 in standard form"
 	,"35.607 x 10","35.607 x 10<sup>2</sup>","3.5607 x 10<sup>2</sup>","3.5607 x 10<sup>-2</sup>","C"],
 	
-	["What is the rule for the mapping below?<br /><img src='images/mapping.jpg' alt='Mapping Image'/>"
+	[`What is the rule for the mapping below?<br /><img src = ${webImage[4].src} alt='Mapping Image'/>`
 	,"y = 2x + 2","y = 2<sup>x</sup>","y = x + 2","y = x + 1","B"],
 	
 	["Solve 4x - 6 < -2"
@@ -678,7 +679,7 @@ const qMathsJunior = [
 	["Kofi throws a die. What is the probability that he throws the number 2?"
 	,"1","2/3","1/6","1/2","C"],
 	
-	["<img src='images/triangle.jpg' alt='A Triangle'/><br />Find the value of <strong>P</strong> in the diagram above."
+	[`<img src = ${webImage[5].src} alt='A Triangle'/><br />Find the value of P in the diagram above.`
 	,"110","90","70","40","D"],
 	
 	["Make <em>a</em> subject of the the relation P = 2(a + b)"
@@ -687,7 +688,7 @@ const qMathsJunior = [
 	["What is the value of x in relation	5<sup>x</sup> = 125?"
 	,"2","3","4","5","B"],
 	
-	["Calculate the length of QR in triangle PQR below<br /><img src='images/triangle2.jpg' alt='A Triangle'/>"
+	[`Calculate the length of QR in triangle PQR below<br /><img src = ${webImage[6].src} alt='A Triangle'/>`
 	,"11","14","16","17","B"],
 	
 	["Five cards are numbered 1 to 5. A card is picked at random. What is the probability that it has an even number?"
@@ -717,16 +718,16 @@ const qMathsJunior = [
 	["The length of a spring when a mass of n kg is hung on it is L = (74 + 15n) mm. What is the length of the spring when a mass of 1.2kg is hanged on it?"
 	,"75.20 mm","89.00 mm","92.00 mm","97.00 mm","C"],
 	
-	["In the figure below, triangle ABC is an enlargement of triangle ADE. If |AE| = 20cm and |EC| = 10cm. What is the scale factor of the enlargement?<br /><img src='images/triangle3.jpg' alt='A Triangle'/>"
+	[`In the figure below, triangle ABC is an enlargement of triangle ADE. If |AE| = 20cm and |EC| = 10cm. What is the scale factor of the enlargement?<br /><img src = ${webImage[7].src} alt='A Triangle'/>`
 	,"1/2","3/2","2","3","B"],
 	
-	["<img src='images/anglebtwlines.jpg' alt='Angles between lines'/><br />The angles a and b in the figure above are"
+	[`<img src = ${webImage[8].src} alt='Angles between lines'/><br />The angles a and b in the figure above are`
 	,"corresponding","interior opposite","vertically opposite","alternate","A"],
 	
 	["A man travelled a distance of 1.2km in 30 minutes. What distance can he cover in 55 minutes travelling at the same speed?"
 	,"1.375 km","2.02 km","2.2 km","12.02 km","C"],
 	
-	["<img src='images/anglesinpolygon.jpg' alt='Angles in a polygon'/><br />In the diagram above, triangle ABC is an isosceles triangle. <ABD = 108°. Find the value of y."
+	[`<img src = ${webImage[9].src} alt='Angles in a polygon'/><br />In the diagram above, triangle ABC is an isosceles triangle. ‹ABD = 108°. Find the value of y.`
 	,"72","60","48","36","D"]
 	
 ];
