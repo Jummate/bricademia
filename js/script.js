@@ -918,11 +918,7 @@ addEventListener("click", event => {
 	switch(subject)
 	{
 		case "junior-maths":
-			subjChosen = subject;
-			allocatedTime = 25;	
-			selectionArea.innerHTML = `You have <span style="font-weight:bolder;">${allocatedTime} minutes</span> for this test.`;
-			start.style.display = "block";
-			break;
+			
 		case "senior-maths":
 			subjChosen = subject;
 			allocatedTime = 40;	
