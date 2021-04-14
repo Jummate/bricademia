@@ -19,6 +19,7 @@ body{
 	font-family: 'Century Gothic','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	position: relative;
 }
+
 /* ---------------------Peripheral parts of the app------------------------------ */
 #menu-bar{
 	display:none;
@@ -452,6 +453,16 @@ footer{
 	}
 	.cont-portal-body{
 		padding-left:20px;
+	}
+}
+
+/* ----- Containerize the display to the center at widths above my computer screen. */
+/* ------- This is because the display is fine at full width on my screen ------ */
+@media screen and (min-width: 1370px){
+	.main-container{
+		max-width:1150px;
+		margin-left: auto;
+		margin-right:auto;
 	}
 }
 /* --------- For Ipads and Tablets -------- */
