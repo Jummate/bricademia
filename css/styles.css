@@ -7,19 +7,63 @@
 html{
 	width:100vw;
 	height:100vh;
-	overflow: hidden;
+	overflow:auto;
 }
 /* -----------Body is positioned relatively because of the menu bar and submit confirmation------ */
 body{
 	width:100%;
 	height:100%;
 	color:#fff;
-	padding:10px;
-	background-color:#000;
 	font-family: 'Century Gothic','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	position: relative;
+	background-image: url('../images/bricademia-background.png');
+	background-repeat:no-repeat;
+	background-position:center;
+	background-size:cover;
 }
 
+#overlay{
+	display:none;
+	width:100vw;
+	height:100vh;
+	background:radial-gradient(rgba(0,0,0,0.9), #151B38);
+	z-index:2;
+	position:absolute;
+}
+#loader-wrapper{
+	position:absolute;
+	display:none;
+	width:200px;
+	height:200px;
+	top:50%;
+	left:50%;
+	text-align:center;
+	transform:translate(-50%, -50%);
+	z-index:3;
+}
+.loader{
+	font-size:100px;
+	animation: loading-effect 1.0s infinite;
+	color:white;
+}
+
+@keyframes loading-effect{
+	0%{
+		opacity:1.0;
+	}
+	25%{
+		opacity:0.7;
+	}
+	50%{
+		opacity:0.5;
+	}
+	75%{
+		opacity:0.2;
+	}
+	100%{
+		opacity:0.0;
+	}
+}
 /* ---------------------Peripheral parts of the app------------------------------ */
 #menu-bar{
 	display:none;
@@ -34,6 +78,7 @@ body{
 	color: white;
 	box-shadow: 1px 1px 2px #000;
 	font-family: 'Courier New', Courier, monospace;
+	z-index:1;
 }
 #menu-bar p{
 	text-align: center;
@@ -56,61 +101,114 @@ li{
 .dev-contact{
 	font-weight: lighter;
 }
-.main-container{
+#main-container{
 	background-color:#fff;
-	display:flex;
+	display:none;
 	flex-direction:column;
 	width:100%;
 	height:100%;
+	position:relative;
 }
 /* -----------Performance Chart-------------- */
-#ctn-main-status{
+#chart-outer-wrapper{
+	background-color:aliceblue;
+	position:absolute;
+	z-index:4;
+	top:50%;
+	left:50%;
+	transform:translate(-50%,-50%);
+	display:none;
+	justify-content:center;
+	align-items:center;
+	width:95%;
+	margin:0 auto;
+	height:250px;
+}
+#chart-inner-wrapper{
+	display:flex;
+	flex-direction:column;
+	width:100%;
+	margin:0 auto;
+	height:90%;
+	justify-content:center;
+	align-items:center;
+}
+#chart{
 	display:flex;
 	margin:0 auto;
 	width:95%;
-	height:50px;
-	margin-bottom:15px;
+	height:100px;
+	justify-content:space-between;
 }
-#ctn-status{
+#barchart-wrapper{
 	display:flex;
 	width:62%;
-	height:50%;
+	height:30px;
+	font-weight:bold;
 }
-#ctn-legend{
+#correct{
+	background-color:green;
+}
+#incorrect{
+	background-color:red;
+}
+.bar{
+	height:100%;
+	text-align:center;
+}
+#legend-wrapper{
 	width:28%;
-	margin-left:10%;
 	font-size:0.7rem;
+	color:navy;
 }
+#legend-wrapper p{
+	font-size:0.6rem;
+	font-weight:bold;
+}
+#incorrect-wrapper{
+	margin-top:10px;
+}
+#result-info{
+	font-size:0.8rem;
+	text-align:center;
+	color:navy;
+	font-weight:bold;
+}
+.correct-symbol{
+	color:green;
+	font-size:1.3rem;
+}
+.incorrect-symbol{
+	color:red;
+	font-size:1.3rem;
+}
+#retake-wrapper{
+	margin-top:20px;
+}
+/* -------------------------------------------------------------------------------------------------------------------- */
 /* ----------------------Header Section------------------------------------------- */
 header{
 	display:flex;
 	align-items: center;
 	width:100%;
-	height:8%;
+	height:45px;
 	padding: 0 7px;
 	background-color:#151B38;
+	
 }
-.ctn-menu{							/* ----------- ctn or cont means container------- */
+.menu-wrapper{							/* ----------- ctn or cont means container------- */
 	display:flex;
 	flex-direction:row-reverse;
 	align-items:flex-end;
 	height:80%;
 	width:40%;
 }
-#menu{
-	display:flex;
-	justify-content:center;
-	align-items:center;
-	width:20px;
-	height:20px;
-	border: solid 2px white;
-	font-weight:bolder;
-	border-left:none;
-	border-right:none;
+#open-menu{
 	cursor:pointer;
+	font-size:1.4rem;
 }
-#menu:hover{
-	border-color: #F6A600;
+
+#open-menu:hover{
 	color: #F6A600;
 }
 .nav-menu{
@@ -145,8 +243,78 @@ main{
 	flex-direction:column;
 	justify-content:center;
 	align-items:center;
-	height:82%;
+	height:100%;
+	width:100%;
 	color:#151B38;
+	position:relative;
+	overflow-y:auto;
+}
+#results{
+	display:none;
+	width:95%;
+	height:50%;
+	margin:0 auto;
+	/* background-color: #151B38; */
+	background-color:#151B38;
+	color:white;
+	overflow:auto;
+	padding:5px;
+	position:absolute;
+	top:50px;
+	right:10px;
+	z-index:3;
+	box-shadow: 1px 1px 2px white, -1px -1px 2px white;
+}
+.no-result-text{
+	text-align:center;
+	font-style:italic;
+	font-size:0.8rem;
+	color:yellow;
+}
+#close-result-wrapper{
+	text-align:right;
+}
+.close-result{
+	background-color:white;
+	font-size:1.5rem;
+	color:red;
+	cursor:pointer;
+	border-radius:10px;
+	padding:3px;
+}
+#result-table{
+	width:100%;
+}
+#table-header{
+	text-align:left;
+	font-size:0.8rem;
+}
+#result-table th{
+	padding:5px;
+}
+.table-row{
+	text-align:left;
+	font-size:0.6rem;
+	padding:3px;
+}
+.table-row:nth-child(odd){
+	background-color:white;
+	color:#151B38;;
+}
+#clear-log{
+	text-align:center;
+}
+#clear-log button{
+	background-color:navy;
+	color:white;
+	font-size:0.9rem;
+	padding:4px;
+	margin:5px 0px;
+	cursor:pointer;
+}
+#clear-log button:hover{
+	color:blue;
+	background-color:white;
 }
 #cont-timer{
 	display:flex;
@@ -157,24 +325,38 @@ main{
 	margin-right:auto;
 	margin-top:8px;
 	margin-bottom:4px;
-	height:8%;
+	height:35px;
 	border-radius:5px;
 	box-shadow:1px 1px 2px gray, -1px -1px 2px gray;
 	visibility: visible;	
 }
+.portal-body-outer-container{
+	overflow-y:auto;
+	height:100%;
+	width:95%;
+	box-shadow:1px 1px 2px gray, -1px -1px 2px gray;
+	border-radius:5px;
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	background-color:#F5F5F5;
+}
 .cont-portal-body{
-	height:78%;
+	height:80%;
 	display:flex;
 	font-size: 0.8rem;
 	flex-direction:column;
 	align-items:center;
-	justify-content:center;
-	width:95%;
-	background-color:#F5F5F5;
+	justify-content:flex-start;
+	width:100%;
+	
 	margin: 4px auto;
 	padding-left: 10px;
-	border-radius:5px;
-	box-shadow:1px 1px 2px gray, -1px -1px 2px gray;
+	padding-top:10%;
+	overflow-y:auto;
+}
+.portal-inner-wrapper{
+	
 }
 #subject-option{
 	text-align: center;
@@ -288,7 +470,7 @@ nav{
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	height:14%;
+	height:50px;
 	width:95%;
 	border-radius:5px;
 	margin:4px 0;
@@ -334,22 +516,23 @@ nav{
 /* ------------------Submit confirmation-------------------- */
 #confirmation{
 	position:absolute;
-	top:40%;
-	bottom:40%;
-	width: 50%;
-	left:30%;
-	right:30%;
-	height:20%;
-	display:flex;
+	top:50%;
+	width: 90%;
+	margin:0 auto;
+	left:50%;
+	transform:translate(-50%, -50%);
+	height:300px;
 	flex-direction:column;
 	background-color:white;
 	border: groove 2px navy;
 	border-radius:8px;
-	font-size:0.7rem;
+	padding:0px 5px;
+	font-size:0.9rem;
 	align-items:center;
 	justify-content:center;
-	visibility:hidden;
+	display:none;
 	color:#151B38;
+	z-index:2;
 }
 #confirmation p{
 	text-align:center;
@@ -384,33 +567,47 @@ nav{
 /* -------------------About the Developer------------------------- */
 footer{
 	background-color:#151B38;
-	height:10%;
+	height:80px;
 	font-weight:lighter;
 	color: #F6A600;
-	text-align:center;
-	padding:5px 0;
+	display:flex;
+	justify-content:center;
+	align-items:center;
 }
 #footer-info{
 	height:100%;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: space-around;
 	align-items: center;
-	font-size:0.9rem;
+	font-size:0.7rem;
 	letter-spacing: 0.7px;
+	padding:15px 0;
 }
 #footer-info p{
 	margin-bottom:2px;
 }
 .foot-nav{
 	color:#fff;
-	font-size:0.8rem;
+	/* font-size:0.8rem; */
 	margin-right: 8px;
 	cursor:pointer;
+	border-radius:3px;
+	padding:0px 3px;
+	background-color:#151B54;
+	box-shadow:1px 1px 1px gray, -1px -1px 1px gray;
 }
 .foot-nav:hover{
 	color: #F6A600;
-	font-size:0.85rem;
+}
+#footer-remark-wrapper{
+	color:white;
+}
+#footer-nav-wrapper{
+	margin-top:5px;
+}
+#copyright-wrapper{
+	margin:7px 0;
 }
 
 /* ------------------------------- Media Queries ------------------------------ */
@@ -420,14 +617,7 @@ footer{
 	html{
 		font-size: 20px;
 	}
-	main{
-		width:80%;
-		margin:0 auto;
-		height:80%;
-	}
-	header{
-		height:10%;
-	}
+	
 	#start{
 		padding:10px 20px;
 	}
@@ -435,38 +625,43 @@ footer{
 		justify-content: flex-start;
 		padding-left: 30px;	
 	}
-	.first-image{
-		height:40px;
-		width:40px;
-	}
+	
 	#ok{
 		margin-right:20px;
 	}
 	.btn-confirm{
 		padding:10px;
 	}
-	#menu{
+	#open-menu{
 		display: none;
 	}
 	.nav-menu{
 		display:initial;
+		font-size:0.65rem;
 	}
 	.cont-portal-body{
 		padding-left:20px;
+	}
+	#main-container{
+		max-width:1150px;
+		margin-left: auto;
+		margin-right:auto;
+		box-shadow:2px 2px 4px white, -2px -2px 4px white;
+	}
+	#confirmation{
+		width:50%;
+	}
+	#footer-info{
+		
+		font-size:0.6rem;
 	}
 }
 
 /* ----- Containerize the display to the center at widths above my computer screen. */
 /* ------- This is because the display is fine at full width on my screen ------ */
-@media screen and (min-width: 1370px){
-	.main-container{
-		max-width:1150px;
-		margin-left: auto;
-		margin-right:auto;
-	}
-}
+
 /* --------- For Ipads and Tablets -------- */
-@media screen and (max-width:768px) and (min-width:480px){
+@media screen and (max-width:766px) and (min-width:480px){
 	html{
 		font-size: 17px;
 	}

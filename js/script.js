@@ -479,7 +479,7 @@ const qComputer = [
 	["How many kilobytes make 1 megabyte?"
 	,"1000kb","1024kb","1080kb","1200kb","B"],
 	
-	["A presentation is created using _________:"
+	["A presentation is created using _________"
 	,"MS Excel","MS-PowerPoint","CorelDraw","Adobe PhotoShop","B"],
 	
 	["What is the full meaning of BASIC?"
@@ -509,7 +509,7 @@ const qComputer = [
 	["A set of instructions which tells the computer what to do is called ________"
 	,"Algorithm","Data Structure","Program","Software","C"],
 	
-	["A step-by-step procedure designed towards solving a certain problem is know as __________"
+	["A step-by-step procedure designed towards solving a certain problem is known as __________"
 	,"Algorithm","Data Structure","Program","Software","A"],
 	
 	["The method of recording and handling of data that makes it neccessary for conversion is __________"
@@ -733,6 +733,9 @@ const qMathsJunior = [
 ];
 // ---------------------------------------------------------------------------------------------------------------------------------
 
+const _ = elem => {
+	return document.querySelector(elem);
+}
 let pos = 0;
 let subjTitle;
 let subjChosen;
@@ -741,44 +744,86 @@ let optionA;
 let optionB;
 let optionC;
 let optionD;
-let start = document.querySelector("#start");
-let displayArea = document.querySelector(".cont-portal-body");
+
+let start = _("#start");
+let displayArea = _(".cont-portal-body");
 let subject = "";
 let quesList = null;
-let next = document.querySelector("#next");
-let prev = document.querySelector("#prev");
-let page = document.querySelector("#page");
-let send = document.querySelector("#send");
-let menu = document.querySelector("#menu");
-let menuBar = document.querySelector("#menu-bar");
+let next = _("#next");
+let prev = _("#prev");
+let page = _("#page");
+let send = _("#send");
+let menu = _("#open-menu");
+let menuBar = _("#menu-bar");
 let submitted = false;
 let timeOut;
 let home = document.querySelectorAll(".home");
-let portfolio = document.querySelectorAll(".portfolio");
+let result = document.querySelectorAll(".result");
 let contact = document.querySelectorAll(".contact");
-let displayPortfolio = document.querySelector("#show-portfolio");
-let displayContact = document.querySelector("#show-contact");
+let displayPortfolio = _("#show-portfolio");
+let displayContact = _("#show-contact");
 let pressMenu = true;
-let okay = document.querySelector("#ok");
-let cancel = document.querySelector("#cancel");
+let okay = _("#ok");
+let cancel = _("#cancel");
 
-let chooseSubject = document.querySelector("#choose-subject");
-let subjectOptions = document.querySelector("#subject");
-let reTake = document.querySelector("#retake");
+let chooseSubject = _("#choose-subject");
+let subjectOptions = _("#subject");
+let reTake = _("#retake");
 
-let selectionArea = document.querySelector("#subject-option");
+let selectionArea = _("#subject-option");
 let allocatedTime = 0;
+let m = false;
 
+window.addEventListener("DOMContentLoaded", ()=>{
+	if(!sessionStorage.hasOwnProperty("firstLoading"))
+	{
+		sessionStorage.setItem("firstLoading", "1");
+	}
+	if(sessionStorage.getItem("firstLoading") === "1")
+	{
+		sessionStorage.setItem("firstLoading","0");
+		_("#overlay").style.display = "block";
+		_("#loader-wrapper").style.display = "block";
+		setTimeout(()=>{
+			_("#overlay").style.display = "none";
+			_("#loader-wrapper").style.display = "none";
+		_("#main-container").style.display = "flex";										
+		}, 4000);
+		
+	}
+	else
+	{
+		_("#main-container").style.display = "flex";
+	}
 
+})
+// 	-------------------------------this works out the timestamp---------------------------------
+const getTimeStamp = function()
+	{
+		const days = ["Sun","Mon","Tue","Wed","Thur","Fri","Sat"];
+		let date = new Date();
+		let day = date.getDate();
+		let month = date.getMonth() + 1;
+		let year = date.getFullYear();
+		let hour = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
+		let minute = date.getMinutes() > 9 ? date.getMinutes() : "0"+date.getMinutes();
+		let period = date.getHours() >= 12 ?"pm":"am";
+		let today = days[date.getDay()];
+		
+		return `${today} ${day}/${month}/${year} ${hour}:${minute}${period}`;
+	}
+	
+_(".close-result").addEventListener("click", ()=>{
+	_("#overlay").style.display = "none";
+	_("#results").style.display = "none";
+})
 //users can retake the test
 reTake.addEventListener("click", () => {
-	document.querySelector("#ctn-retake").style.display = "none";
-	displayArea.style.setProperty("align-items","flex-start");
-	displayArea.style.setProperty("padding-left","10px");
+	_("#overlay").style.display = "none";
+	_("#chart-outer-wrapper").style.display = "none";
 	pos = 0;
 	next.style.display = "initial";
 	subject = subjChosen;
-	console.log(subject);
 	switch(subject){
 		case "ENGLISH LANGUAGE":
 			render(qEnglish);
@@ -807,9 +852,62 @@ reTake.addEventListener("click", () => {
 	}
 	
 })
-//this shows the developer's portfolio on the DOM
-function showPortfolio(){
-	displayArea.innerHTML = displayPortfolio.innerHTML;		//transfer the whole content of the portfolio section on the DOM to the display area
+
+const createNewRow = function(arr){										//this creates a new image on the fly
+		
+		let newRow = document.createElement("tr");
+		newRow.classList.add("table-row");
+		newRow.innerHTML += "<td><i class='fa fa-circle'></i></td>";
+		newRow.innerHTML += `<td>${arr[0]}</td>`;
+		newRow.innerHTML += `<td>${arr[1]}</td>`;
+		newRow.innerHTML += `<td>${arr[2]}%</td>`;
+		newRow.innerHTML += `<td>${arr[3]}</td>`;
+		return newRow;
+	}
+
+const createNewHeader = function(){										//this creates a new image on the fly
+	
+	let newHeader = document.createElement("tr");
+	newHeader.id = "table-header";
+	newHeader.innerHTML += "<th></th>";
+	newHeader.innerHTML += "<th>Subject</th>";
+	newHeader.innerHTML += "<th>Score</th>";
+	newHeader.innerHTML += "<th>Percent Score</th>";
+	newHeader.innerHTML += "<th>Timestamp</th>";
+	return newHeader;
+}
+
+const clearResultLog = function(){
+	localStorage.removeItem("userResults");
+	document.querySelectorAll(".table-row").forEach((element)=>{
+		element.innerHTML = "";
+	});
+};
+
+_("#clear-log button").addEventListener("click", clearResultLog);
+
+
+function showResultTable(){
+	_("#overlay").style.display = "block";
+	_("#results").style.display = "block";
+	if(localStorage.hasOwnProperty("userResults"))
+	{
+		_("#clear-log").style.display = "block";
+		_("#result-table").innerHTML = "";
+		_("#result-table").appendChild(createNewHeader());
+		const eachItem = JSON.parse(localStorage.getItem("userResults"));
+		for(let x = eachItem.length - 1; x >= 0; x--)
+		{
+			let newRow = createNewRow(eachItem[x]);
+			_("#result-table").appendChild(newRow);
+		}
+	}
+	else
+	{
+		_("#clear-log").style.display = "none";
+		_("#result-table").innerHTML = "<p class='no-result-text'>No result has been submitted yet</p>"
+	}
+	
 	menuBar.style.display = "none";
 }
 
@@ -827,37 +925,51 @@ home.forEach(element => {
 	});	
 });
 
-portfolio.forEach(element => {
-	element.addEventListener("click", showPortfolio);
-})
 
-contact.forEach(element => {
-	element.addEventListener("click", showContact);
-})
+result.forEach(element => {
+	element.addEventListener("click", showResultTable);
+});
 
-cancel.addEventListener("click", () => {document.querySelector("#confirmation").style.visibility = "hidden";})	//give the user a chance to reconsider
+cancel.addEventListener("click", () => {			//give the user a chance to reconsider
+	_("#confirmation").style.display = "none";
+	_("#overlay").style.display = "none";
+	});											
+
+function generateAndPresentResult(){
+	let result = displayResult();							//compute the result of the just concluded test
+	let timestamp = getTimeStamp();
+	let percent = Math.round((result/quesList.length)*100);	//compute the percent (correct answers) to a whole number
+	_("#overlay").style.display = "block";
+	_("#chart-outer-wrapper").style.display = "flex";
+	_("#incorrect").style.width = `${100 - percent}%`;		//compute the percent(wrong answers)
+	_("#incorrect").textContent = quesList.length - result;
+	_("#correct").style.width = `${percent}%`;
+	_("#correct").textContent = result;
+	
+	_("#result-info").innerHTML = `<p>You answered ${result} of ${quesList.length} questions correctly.</p>`;
+	_("#result-info").innerHTML += `<p>Your score is <span style="font-size:1.5rem; font-weight:bolder;">${percent}%</span></p>`;
+	_("nav").style.visibility = "hidden";
+	_("#confirmation").style.display = "none";
+	
+	prev.style.visibility = "hidden";
+	send.style.display = "none";
+	
+	if(!localStorage.hasOwnProperty("userResults"))
+	{
+		localStorage.setItem("userResults", JSON.stringify([[subjTitle,`${result}/${quesList.length}`, percent, timestamp]]))
+	}
+	else
+	{
+		let temp = JSON.parse(localStorage.getItem("userResults"));
+		temp.push([subjTitle,`${result}/${quesList.length}`, percent, timestamp]);
+		localStorage.setItem("userResults", JSON.stringify(temp));
+	}
+}
 
 okay.addEventListener("click", () => {
 	clearInterval(timeOut);									//stop the timer
-	let result = displayResult();							//compute the result of the just concluded test
 	submitted = true;										//the user has submitted and seen the results
-	let percent = Math.round((result/quesList.length)*100);	//compute the percent (correct answers) to a whole number
-	displayArea.style.setProperty("align-items","center");		//re-adjust the display area to center the content
-	displayArea.style.setProperty("padding-bottom","0px");
-	displayArea.style.setProperty("padding-left","0px");
-	document.querySelector("#correct").style.width = `${percent}%`;
-	document.querySelector("#wrong").style.width = `${100 - percent}%`;		//compute the percent(wrong answers)
-	const outerContainer = document.body.removeChild(document.querySelector("#ctn-outer-status"));		//remove and place the chart at the required location
-	outerContainer.style.display ="block";																//show the performance chart
-
-	displayArea.innerHTML = outerContainer.innerHTML;
-	displayArea.innerHTML += `<p>You answered ${result} of ${quesList.length} questions correctly.</p><br><br>`;
-	displayArea.innerHTML+= `<p>Your score is <span style="font-size:1.5rem; font-weight:bolder;">${percent}%</span></p>`;
-	document.querySelector("nav").style.visibility = "hidden";
-	document.querySelector("#ctn-retake").style.display = "block";
-	document.querySelector("#confirmation").style.visibility = "hidden";
-	prev.style.visibility = "hidden";
-	send.style.display = "none";
+	generateAndPresentResult();
 	});
 
 menu.addEventListener("click", () => {				//hide and display the menu bar
@@ -878,7 +990,7 @@ addEventListener("click", event => {		//Alternative to using the menu button to 
 	//the user only needs to click anywhere on the page outside the menu bar to hide it
 	//since the height and width of the bar are 60% and 40% of the page respectively
 	//the click that will hide the menu bar must happen at a point farther than the 40% and 60% width and height of the page respectively
-	if(event.target.getAttribute("id") != "menu" && (event.clientX > (x * 0.4) || event.clientY > (y * 0.6))){
+	if(event.target.getAttribute("id") != "open-menu" && (event.clientX > (x * 0.4) || event.clientY > (y * 0.6))){
 		menuBar.style.display = "none";
 	}
 });
@@ -887,6 +999,7 @@ addEventListener("click", event => {		//Alternative to using the menu button to 
 chooseSubject.addEventListener("click", () => {
 	chooseSubject.style.display = "none";
 	subjectOptions.style.display = "block";
+	displayArea.style.setProperty("padding-top", "0px");
 	subjectOptions.style.animation="slide 0.2s linear normal";
  });
  let secondTier = Array.from(document.querySelectorAll(".second-tier"));
@@ -900,10 +1013,10 @@ subjectOptions.addEventListener("click", event => {
 	subjChosen = subject;
 	switch(subject){
 		case "MATHEMATICS":
-			selectionArea.innerHTML = document.querySelector("#level-maths").innerHTML;
+			selectionArea.innerHTML = _("#level-maths").innerHTML;
 			break;
 		case "PROGRAMMING":
-			selectionArea.innerHTML = document.querySelector("#programming").innerHTML;
+			selectionArea.innerHTML = _("#programming").innerHTML;
 			break;
 		default:
 			allocatedTime = 20;
@@ -974,24 +1087,7 @@ function displayResult(){
 
 function submitWithout(){
 	error.style.display = "none";
-	let result = displayResult();
-	let percent = Math.round((result/quesList.length)*100);
-	displayArea.style.setProperty("align-items","center");
-	displayArea.style.setProperty("padding-bottom","0px");
-	displayArea.style.setProperty("padding-left","0px");
-	
-	document.querySelector("#correct").style.width = `${percent}%`;
-	document.querySelector("#wrong").style.width = `${100 - percent}%`;
-	const outerContainer = document.body.removeChild(document.querySelector("#ctn-outer-status"));
-	outerContainer.style.display ="block";
-
-	displayArea.innerHTML = outerContainer.innerHTML;
-	displayArea.innerHTML += `<p>You answered ${result} of ${quesList.length} questions correctly.</p><br><br>`;
-	displayArea.innerHTML+= `<p>Your score is <span style="font-size:1.5rem; font-weight:bolder;">${percent}%</span></p>`;
-	document.querySelector("#ctn-retake").style.display = "block";
-	document.querySelector("nav").style.visibility = "hidden";
-	prev.style.visibility = "hidden";
-	send.style.display = "hidden";
+	generateAndPresentResult();
 }
 
 send.addEventListener("click",() => {
@@ -1000,7 +1096,8 @@ send.addEventListener("click",() => {
 	}
 	else{
 		error.style.display = "none";
-		document.querySelector("#confirmation").style.visibility = "visible";	//if all questions were answered, confirmation page pops us ready for submission
+		_("#overlay").style.display = "block";
+		_("#confirmation").style.display = "flex";	//if all questions were answered, confirmation page pops us ready for submission
 	}
 })
 
@@ -1013,11 +1110,11 @@ function render(chosen){
 	optionC = quesList[pos][3];
 	optionD = quesList[pos][4];
 	
-	document.querySelector(".subject-title").innerHTML = subjTitle.toUpperCase();
+	_(".subject-title").innerHTML = subjTitle.toUpperCase();
 
 	displayArea.style.setProperty("align-items","flex-start");
-	displayArea.style.setProperty("justifity-content","flex-start");
-	displayArea.style.setProperty("padding-top","30px");
+	//displayArea.style.setProperty("justify-content","flex-start");
+	displayArea.style.setProperty("padding-top","10%");
 	displayArea.style.setProperty("font-weight","bold");
 	displayArea.innerHTML = "";
 	 if(subject == "ENGLISH LANGUAGE"){					//pass in the instruction for English only
@@ -1032,7 +1129,7 @@ function render(chosen){
 	displayArea.innerHTML+= `<p style="margin-left:20px; margin-top:20px;"><input type="radio" name="choices" value="B" id="second"><label for="second">${optionB}</label></p>`;
 	displayArea.innerHTML += `<p style="margin-left:20px; margin-top:20px;"><input type="radio" name="choices" value="C" id="third"><label for= "third">${optionC}</label></p>`;
 	displayArea.innerHTML += `<p style="margin-left:20px; margin-top:20px;"><input type="radio" name="choices" value="D" id="fourth"><label for="fourth">${optionD}</label></p>`;
-	document.querySelector("nav").style.visibility = "visible";
+	_("nav").style.visibility = "visible";
 	page.innerHTML = (pos+1)+"\t\tof\t\t"+quesList.length; 
 	prev.style.visibility = "hidden";
 	
@@ -1079,8 +1176,7 @@ function displayQuestion(sign){
 	optionC = quesList[pos][3];
 	optionD = quesList[pos][4];
 	displayArea.style.setProperty("align-items","flex-start");
-	displayArea.style.setProperty("justifity-content","flex-start");
-	displayArea.style.setProperty("padding-top","30px");
+	displayArea.style.setProperty("padding-top","10%");
 	displayArea.style.setProperty("font-weight","bold");
 	displayArea.innerHTML = "";
 	if(subject == "ENGLISH LANGUAGE"){
@@ -1110,7 +1206,7 @@ function displayQuestion(sign){
 
 next.addEventListener("click",function(){
 	if (pos < quesList.length) {		//as long as there are still questions to be answered, move
-		let error = document.querySelector("#error");
+		let error = _("#error");
 		if(quesList[pos].length == 6){				//this question has not been answered yet
 			prev.style.visibility = "visible";
 			error.style.display = "block";			//the error message remains there until you answer the question
@@ -1141,14 +1237,14 @@ prev.addEventListener("click", function() {
 		prev.style.visibility = "hidden";	//there is nothing to go back to
 		next.style.display = "initial";		//we have something to look forward to instead
 	}
-	let error = document.querySelector("#error");	
+	let error = _("#error");	
 	error.style.display = "none";					
 	send.style.display = "none";
 	
 });
 
 function startTimer(duration){
-	let timer = document.querySelector(".timer");
+	let timer = _(".timer");
 	let hour = 0;
 	let min = 0;
 	let sec = 0;

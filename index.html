@@ -4,10 +4,13 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Bricademia Exam Portal</title>
+		<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
 		<link rel="stylesheet" href="css/styles.css">
 	</head>
 	<body>
-		<!-- *******************************Hidden Parts************************************* -->
+		<!-- *******************************Hidden Parts***********start************************** -->
+		<div id="overlay"></div>
+		<div id="loader-wrapper"><i class="fa fa-graduation-cap loader"></i></div>
 		<!-- all images used in the questions -->
 		<img src='images/exam_img.JPG' alt='Triangle Inside Square' style="display:none" class="webimage"/>
 		<img src='images/angleatapoint.JPG' alt='Angle at a Point' style="display:none" class="webimage"/>
@@ -42,51 +45,32 @@
 			<!-- <p><input type="button" class="backtomainlist" value= "Back"></p> -->
 		</div>
 		<!-- ************Performance Chart********** -->
-		<div id="ctn-outer-status" style="display:none; width:60px; height:30px;">
-			<div  id="ctn-main-status">
-				<!-- *******Chart showing the performance in the test******* -->
-				<div id="ctn-status">
-					<div id="correct" style="height:100%; background-color:green;">
+		<div id="chart-outer-wrapper">
+			<div id="chart-inner-wrapper">
+				<div  id="chart">
+					<!-- *******Chart showing the performance in the test******* -->
+					<div id="barchart-wrapper">
+						<div id="correct" class="bar"></div>
+						<div id="incorrect" class="bar"></div>
 					</div>
-					<div id="wrong" style="height:100%; background-color:red;">
+					<!-- ******Legend******* -->
+					<div id="legend-wrapper">
+						<p><i class="fa fa-circle correct-symbol"></i> Correct</p>
+						<p id="incorrect-wrapper"><i class="fa fa-circle incorrect-symbol"></i> Incorrect</p>
 					</div>
 				</div>
-				<!-- ******Legend******* -->
-				<div id="ctn-legend">
-					<div style="text-align:left; margin-bottom:10px;">
-						<span style="background-color:green; color:green; border-radius:50%;">......</span> Correct
-					</div>
-					<div style="text-align:left";>
-						<span style="background-color:red; color:red; border-radius:50%;">......</span> Wrong
-					</div>
-
-				</div>
+				<div id="result-info"></div>
+				<p id="retake-wrapper">
+					<button style="margin-right:13px;" id="retake" class="btn-action">Re-take</button>
+					<button class="btn-action home">Home</button>
+				</p>
 			</div>
 		</div>
 		<!-- *******Menu Bar******* -->
 		<div id="menu-bar">
 			<p class="home">Home</p>
-			<p class="portfolio">Portfolio</p>
-			<p class="contact">Contact</p>
-		</div>
-		<!-- ****Portfolio**** -->
-		<div id="show-portfolio" style="display: none;">
-			<p style="line-height:2.0;">These are some of the simple projects the developer has carried out. Kindly take some time out to check through.</p><br>
-			<ul class="about-developer">
-				<li><a href="https://jummate.github.io/TimerClock" title="Timer Clock">Timer Clock</a></li>
-				<li><a href="https://jummate.github.io/BMICalculator" title="BMI Calculator">Body Mass Index Calculator</a></li>
-				<li><a href="https://jummate.github.io/Dictionary" title="Dictionary">Dictionary</a></li>
-				<li><a href="https://jummate.github.io/StandardCalculator" title="Standard Calculator">Standard Calculator</a></li>
-			</ul>
-		</div>
-		<!-- ****Contact**** -->
-		<div id="show-contact" style="display: none;">
-			<p style="line-height:2.0;">You can always get in touch with the developer through the following media:</p><br>
-			<ul class="about-developer">
-				<li><span class="social">Whatsapp/Call:</span><span class="dev-contact">+2347067896279</span></li>
-				<li><span class="social">Email:</span><span class="dev-contact">jumatyakub@gmail.com</span></li>
-				<li><span class="social">Telegram:</span><span class="dev-contact">+2347067896279</span></li>
-			</ul>
+			<p class="result">Results</p>
+			<!-- <p class="contact">Contact</p> -->
 		</div>
 		<!-- ****Confirm the submission of the user's answers**** -->
 		<div id="confirmation">
@@ -97,19 +81,37 @@
 			</span>
 		</div>
 		<!-- ****This encloses everything**** -->
-		<div class="main-container">
+		<div id="main-container">
+			
+			<div id="results">
+				<div id="close-result-wrapper"><i class="fa fa-close close-result"></i></div>
+				<div id="result-table-wrapper">
+					<table id="result-table">
+						<tr id="table-header">
+							<th></th>
+							<th>Subject</th>
+							<th>Score</th>
+							<th>Percent Score</th>
+							<th>Timestamp</th>
+						</tr>
+					</table>
+				</div>
+				<p id="clear-log"><button>Clear Log</button></p>
+			</div>
 			<!-- *****Logo and name of the app are placed here**** -->
 			<header>
 				<div class="ctn-logotext">
 					<img class="first-image" src="images/bricadem-logo.png" alt="Bricademia Logo">
 					<span>bricademia</span>
 				</div>
-				<div class="ctn-menu">		
-					<div id="menu">- -</div>		<!-- This is hidden for desktop version -->
+				<div class="menu-wrapper">		
+					<i class="fa fa-bars" id="open-menu"></i>		<!-- This is hidden for desktop version --> 
+					<div>
 					<!-- These are hidden for mobile version -->
-					<span class="nav-menu contact">Contact</span>
-					<span class="nav-menu portfolio">Portfolio</span>
-					<span class="nav-menu home">Home</span>
+						<li class="nav-menu home">Home</li>
+						<li class="nav-menu result">Results</li>
+						<!-- <li class="nav-menu portfolio">Portfolio</li> -->
+					</div>
 				</div>
 			</header>
 			<!-- The body of the app including the display and navigation buttons -->
@@ -119,25 +121,26 @@
 					<span class="subject-title"></span>
 					<span class="timer"></span>
 				</div>
-				<!-- The display area of the app -->
-				<div class="cont-portal-body">
-					
-					<section id="subject-option">
+				<!-- ----------------------------------------------------The display area of the app ----------------------------------------------------->
+				<div class="portal-body-outer-container">
+					<div class="cont-portal-body">
 						
-						<div id="choose-subject"><span>Please select a subject:</span><span class="arrow">↓</span></div>
-						<ul id="subject">
-							<li>BASIC SCIENCE</li>
-							<li>MATHEMATICS</li>
-							<li>BASIC TECHNOLOGY</li>
-							<li>ENGLISH LANGUAGE</li>
-							<li>COMPUTER STUDIES</li>
-							<li>PROGRAMMING</li>
-						</ul>
-					</section>
-					<button id="start" class="btn-action">Start Test</button>
+						<section id="subject-option">
+							
+							<div id="choose-subject"><span>Please select a subject:</span><span class="arrow">↓</span></div>
+							<ul id="subject">
+								<li>BASIC SCIENCE</li>
+								<li>MATHEMATICS</li>
+								<li>BASIC TECHNOLOGY</li>
+								<li>ENGLISH LANGUAGE</li>
+								<li>COMPUTER STUDIES</li>
+								<li>PROGRAMMING</li>
+							</ul>
+						</section>
+						<button id="start" class="btn-action">Start Test</button>
+					</div>
 				</div>
-				<!-- users can retake the just concluded test -->
-				<p id="ctn-retake" style="display:none;"><button style="margin-right:13px;" id="retake" class="btn-action">Re-take</button><button class="btn-action home">Home</button></p>
+				<!-- -----------------------------users can retake the just concluded test -------------------------->
 				<span id="error">***You have not selected an answer***</span>	<!-- This displays the error -->
 				<nav>
 					<!-- These form the navigation part -->
@@ -149,9 +152,9 @@
 			</main>
 			<footer>
 				<section id="footer-info">
-					<!-- Info about the developer -->
-					<p>Jummate<span>&nbsp;&copy;</span>2020</p>
-					<p><span class="foot-nav home">Home</span> <span class="foot-nav portfolio">Portfolio</span><span class="foot-nav contact">Contact</span></p>
+					<p id="footer-nav-wrapper"><span class="foot-nav home">Home</span> <span class="foot-nav result">Results</span></p>
+					<p id="copyright-wrapper">Jummate<span>&nbsp;&copy;</span>2021</p>
+					<p id="footer-remark-wrapper">Designed by Omololu Jumat</p>
 				</section>
 			</footer>
 		</div>
