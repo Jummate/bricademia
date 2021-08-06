@@ -445,7 +445,7 @@ const qBasicTech = [
 	["Which of the following is used as head protection device in workshop?",
 	"head belt","helmet","fez cap", "shield","B"]
 	];
-const qComputer = [
+const qComputer2 = [
 	["Examples of application software include _______"
 	,"MS Excel","MS-DOS","UNIX","LINUX","A"],
 	
@@ -731,6 +731,20 @@ const qMathsJunior = [
 	,"72","60","48","36","D"]
 	
 ];
+
+
+// -----------------Testing Purpose
+
+const qComputer = [
+	["Examples of application software include _______"
+	,"MS Excel","MS-DOS","UNIX","LINUX","A"],
+	
+	["The following are examples of Operating System except ______"
+	,"Windows","Linux","Adobe PageMaker","Mac","C"],
+	
+	["Convert 30 to Hexadecimal:"
+	,"1E","1A","2F","1F","A"]
+]
 // ---------------------------------------------------------------------------------------------------------------------------------
 
 const _ = elem => {
@@ -911,11 +925,6 @@ function showResultTable(){
 	menuBar.style.display = "none";
 }
 
-//this shows the developer's contact on the DOM
-function showContact(tag){
-	displayArea.innerHTML = displayContact.innerHTML;		//transfer the whole content of the CONTACT section on the DOM to the display area
-	menuBar.style.display = "none";
-}
 
 window.addEventListener("load", () =>{subject = ""});
 
@@ -1098,6 +1107,7 @@ send.addEventListener("click",() => {
 		error.style.display = "none";
 		_("#overlay").style.display = "block";
 		_("#confirmation").style.display = "flex";	//if all questions were answered, confirmation page pops us ready for submission
+		_("#cancel").focus();
 	}
 })
 

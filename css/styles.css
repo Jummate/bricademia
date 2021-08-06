@@ -73,8 +73,8 @@ body{
 	height:60%;
 	width:40%;
 	position:absolute;
-	left:10px;
-	top:10px;
+	left:2px;
+	top:2px;
 	color: white;
 	box-shadow: 1px 1px 2px #000;
 	font-family: 'Courier New', Courier, monospace;
@@ -254,8 +254,8 @@ main{
 	width:95%;
 	height:50%;
 	margin:0 auto;
-	/* background-color: #151B38; */
-	background-color:#151B38;
+	background-color: #151B38;
+	/* background-color:#151B38; */
 	color:white;
 	overflow:auto;
 	padding:5px;
@@ -275,12 +275,15 @@ main{
 	text-align:right;
 }
 .close-result{
-	background-color:white;
+	
 	font-size:1.5rem;
 	color:red;
 	cursor:pointer;
 	border-radius:10px;
 	padding:3px;
+}
+.close-result:hover{
+	color: #fff;
 }
 #result-table{
 	width:100%;
@@ -297,23 +300,27 @@ main{
 	font-size:0.6rem;
 	padding:3px;
 }
-.table-row:nth-child(odd){
-	background-color:white;
+.table-row:nth-child(even){
+	background-color:lightgray;
 	color:#151B38;;
 }
 #clear-log{
 	text-align:center;
+	margin:30px 0;
 }
 #clear-log button{
-	background-color:navy;
+	background-color:maroon;
 	color:white;
 	font-size:0.9rem;
 	padding:4px;
-	margin:5px 0px;
 	cursor:pointer;
+	border:none;
+	outline:none;
+	border-radius:3px;
+	padding:10px;
 }
 #clear-log button:hover{
-	color:blue;
+	color:maroon;
 	background-color:white;
 }
 #cont-timer{
@@ -548,6 +555,9 @@ nav{
 	outline:none;
 	border:none;
 	transition: background-color 0.1s linear 0s, color 0.1s linear 0s;
+}
+.btn-confirm:focus{
+	border:2px dotted white;
 }
 #ok{
 	background-color:green;

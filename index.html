@@ -4,8 +4,8 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Bricademia Exam Portal</title>
-		<!-- <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css"> -->
-		<script src="https://use.fontawesome.com/d0c490655e.js"></script>
+		<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+		<!-- <script src="https://use.fontawesome.com/d0c490655e.js"></script> -->
 		<link rel="stylesheet" href="css/styles.css">
 	</head>
 	<body>
@@ -77,8 +77,8 @@
 		<div id="confirmation">
 			<p>Are you sure you want to submit?</p>
 			<span>
-				<button id="ok" class="btn-confirm">OK</button>
-				<button id="cancel" class="btn-confirm">CANCEL</button>
+				<button type="button" id="ok" class="btn-confirm">OK</button>
+				<button type="button" id="cancel" class="btn-confirm">CANCEL</button>
 			</span>
 		</div>
 		<!-- ****This encloses everything**** -->
@@ -122,26 +122,29 @@
 					<span class="subject-title"></span>
 					<span class="timer"></span>
 				</div>
-				<!-- ----------------------------------------------------The display area of the app ----------------------------------------------------->
+				<!-- ----------------------------------------------------The display area of the app ---------------------------------------------------- -->
 				<div class="portal-body-outer-container">
 					<div class="cont-portal-body">
 						
 						<section id="subject-option">
 							
 							<div id="choose-subject"><span>Please select a subject:</span><span class="arrow">↓</span></div>
-							<ul id="subject">
-								<li>BASIC SCIENCE</li>
-								<li>MATHEMATICS</li>
-								<li>BASIC TECHNOLOGY</li>
-								<li>ENGLISH LANGUAGE</li>
-								<li>COMPUTER STUDIES</li>
-								<li>PROGRAMMING</li>
-							</ul>
+							<div>
+								<ul id="subject">
+									<li>BASIC SCIENCE</li>
+									<li>MATHEMATICS</li>
+									<li>BASIC TECHNOLOGY</li>
+									<li>ENGLISH LANGUAGE</li>
+									<li>COMPUTER STUDIES</li>
+									<li>PROGRAMMING</li>
+								</ul>
+								<p>Youuuuuuuuuu</p>
+							</div>
 						</section>
 						<button id="start" class="btn-action">Start Test</button>
 					</div>
 				</div>
-				<!-- -----------------------------users can retake the just concluded test -------------------------->
+				<!-- -----------------------------users can retake the just concluded test ------------------------ -->
 				<span id="error">***You have not selected an answer***</span>	<!-- This displays the error -->
 				<nav>
 					<!-- These form the navigation part -->
