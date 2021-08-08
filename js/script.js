@@ -1,4 +1,4 @@
-
+(function(){
 let webImage = document.querySelectorAll(".webimage");		//get all images in the questions
 // ------------------------Available Subjects--------------------------------------------------
 
@@ -445,7 +445,7 @@ const qBasicTech = [
 	["Which of the following is used as head protection device in workshop?",
 	"head belt","helmet","fez cap", "shield","B"]
 	];
-const qComputer2 = [
+const qComputer = [
 	["Examples of application software include _______"
 	,"MS Excel","MS-DOS","UNIX","LINUX","A"],
 	
@@ -733,62 +733,50 @@ const qMathsJunior = [
 ];
 
 
-// -----------------Testing Purpose
-
-const qComputer = [
-	["Examples of application software include _______"
-	,"MS Excel","MS-DOS","UNIX","LINUX","A"],
-	
-	["The following are examples of Operating System except ______"
-	,"Windows","Linux","Adobe PageMaker","Mac","C"],
-	
-	["Convert 30 to Hexadecimal:"
-	,"1E","1A","2F","1F","A"]
-]
 // ---------------------------------------------------------------------------------------------------------------------------------
 
 const _ = elem => {
 	return document.querySelector(elem);
 }
+
+let testIsOn = false;
 let pos = 0;
-let subjTitle;
-let subjChosen;
+let secondTierID = "";
 let question;
 let optionA;
 let optionB;
 let optionC;
 let optionD;
-
+let quesList = null;
+let subject = "";
+let passedThroughSecondTier = false;
+let submitted = false;
 let start = _("#start");
 let displayArea = _(".cont-portal-body");
-let subject = "";
-let quesList = null;
+let timeOut;
+let pressMenu = true;
+let allocatedTime = 0;
+let subjChosen;
+
 let next = _("#next");
 let prev = _("#prev");
 let page = _("#page");
 let send = _("#send");
 let menu = _("#open-menu");
 let menuBar = _("#menu-bar");
-let submitted = false;
-let timeOut;
+let backOne = _("#back-to-main");
 let home = document.querySelectorAll(".home");
 let result = document.querySelectorAll(".result");
-let contact = document.querySelectorAll(".contact");
-let displayPortfolio = _("#show-portfolio");
-let displayContact = _("#show-contact");
-let pressMenu = true;
+
 let okay = _("#ok");
 let cancel = _("#cancel");
-
 let chooseSubject = _("#choose-subject");
-let subjectOptions = _("#subject");
+let subjectContainer = _("#cont-subject");
 let reTake = _("#retake");
-
 let selectionArea = _("#subject-option");
-let allocatedTime = 0;
-let m = false;
 
-window.addEventListener("DOMContentLoaded", ()=>{
+
+window.addEventListener("DOMContentLoaded", ()=>{				//display the animation on the first exploration of the website
 	if(!sessionStorage.hasOwnProperty("firstLoading"))
 	{
 		sessionStorage.setItem("firstLoading", "1");
@@ -831,40 +819,16 @@ _(".close-result").addEventListener("click", ()=>{
 	_("#overlay").style.display = "none";
 	_("#results").style.display = "none";
 })
+
 //users can retake the test
 reTake.addEventListener("click", () => {
 	_("#overlay").style.display = "none";
 	_("#chart-outer-wrapper").style.display = "none";
 	pos = 0;
+	testIsOn = true;
 	next.style.display = "initial";
 	subject = subjChosen;
-	switch(subject){
-		case "ENGLISH LANGUAGE":
-			render(qEnglish);
-			break;
-		case "senior-maths":
-			render(qMathsSenior);
-			break;
-		case "junior-maths":
-			render(qMathsJunior);
-			break;
-		case "COMPUTER STUDIES":
-			render(qComputer);
-			break;
-		case "BASIC TECHNOLOGY":
-			render(qBasicTech);
-			break;
-		case "BASIC SCIENCE":
-			render(qBasicScience);
-			break;
-		case "dsa":
-			render(qDSA);
-			break;
-		case "python":
-			render(qPython);
-			break;
-	}
-	
+	chooseQuest(subject);
 })
 
 const createNewRow = function(arr){										//this creates a new image on the fly
@@ -891,28 +855,30 @@ const createNewHeader = function(){										//this creates a new image on the f
 	return newHeader;
 }
 
-const clearResultLog = function(){
+const clearResultLog = function(){									//function to clear the result log
 	localStorage.removeItem("userResults");
 	document.querySelectorAll(".table-row").forEach((element)=>{
 		element.innerHTML = "";
 	});
 };
 
-_("#clear-log button").addEventListener("click", clearResultLog);
+_("#clear-log button").addEventListener("click", function(){		//clear the result log
+	clearResultLog();
+	_("#clear-log").style.display = "none";
+});
 
-
-function showResultTable(){
+function showResultTable(){											//function to display the result table
 	_("#overlay").style.display = "block";
 	_("#results").style.display = "block";
-	if(localStorage.hasOwnProperty("userResults"))
+	if(localStorage.hasOwnProperty("userResults"))					//are there saved results		
 	{
 		_("#clear-log").style.display = "block";
 		_("#result-table").innerHTML = "";
 		_("#result-table").appendChild(createNewHeader());
-		const eachItem = JSON.parse(localStorage.getItem("userResults"));
+		const eachItem = JSON.parse(localStorage.getItem("userResults"));	//fetch the saved results from the store/database
 		for(let x = eachItem.length - 1; x >= 0; x--)
 		{
-			let newRow = createNewRow(eachItem[x]);
+			let newRow = createNewRow(eachItem[x]);					//create a table with the fetched data
 			_("#result-table").appendChild(newRow);
 		}
 	}
@@ -922,25 +888,61 @@ function showResultTable(){
 		_("#result-table").innerHTML = "<p class='no-result-text'>No result has been submitted yet</p>"
 	}
 	
-	menuBar.style.display = "none";
+	menuBar.style.display = "none";									//close the menu bar back
 }
 
-
-window.addEventListener("load", () =>{subject = ""});
+window.addEventListener("load", () =>{subject = ""});				//reset the subject
 
 home.forEach(element => {
 	element.addEventListener("click", () => {
-		location.reload(); 						//refresh the app to go start all over
+		if(testIsOn)											//is any test currently going on
+		{
+			_("#overlay").style.display = "block";
+			_("#confirm-quit").style.display = "flex";			//confirm quitting of the current test
+			return;
+		}
+		location.reload(); 						//refresh the app to start all over
 	});	
 });
-
 
 result.forEach(element => {
 	element.addEventListener("click", showResultTable);
 });
 
+const review = document.querySelectorAll(".review");
+
+review.forEach(element => {
+	element.addEventListener("click", ()=>{
+	_("#overlay").style.display = "block";
+	_("#cont-outer-review").style.display = "block";
+	_("#cont-review").innerHTML = "";
+	const attemptedQuestion = JSON.parse(sessionStorage.getItem("recentlyAnswered"));		//fetch the just concluded test from the database
+	let recentSubjectTitle = sessionStorage.getItem("recentSubjectTitle");					//fetch the subject title also
+	if(recentSubjectTitle)																	//has any test been written in the current browsing session
+	{
+		_("#subject-title-review").textContent = recentSubjectTitle;
+		_("#cont-review").appendChild(getAllQuestionsInReview(attemptedQuestion));			//prepare and collect the fetched data for display
+	}
+	else
+	{
+		_("#btn-back-to-top").style.display ="none";
+		_("#cont-review").innerHTML = "<p id='error-review'>Oops! Nothing to review. You have not written any test recently.</p>";
+	}
+	
+	});
+});
+
+_("#close-review").addEventListener("click", ()=>{
+	_("#overlay").style.display = "none";
+	_("#cont-outer-review").style.display = "none";
+})
+
+_("#btn-back-to-top").addEventListener("click", ()=>{
+	_("#cont-question-in-review").scrollIntoView();					//scroll to the top of the container
+})
+
 cancel.addEventListener("click", () => {			//give the user a chance to reconsider
-	_("#confirmation").style.display = "none";
+	_("#confirm-submit").style.display = "none";
 	_("#overlay").style.display = "none";
 	});											
 
@@ -958,39 +960,78 @@ function generateAndPresentResult(){
 	_("#result-info").innerHTML = `<p>You answered ${result} of ${quesList.length} questions correctly.</p>`;
 	_("#result-info").innerHTML += `<p>Your score is <span style="font-size:1.5rem; font-weight:bolder;">${percent}%</span></p>`;
 	_("nav").style.visibility = "hidden";
-	_("#confirmation").style.display = "none";
+	_("#confirm-submit").style.display = "none";
 	
 	prev.style.visibility = "hidden";
 	send.style.display = "none";
 	
-	if(!localStorage.hasOwnProperty("userResults"))
+	if(!localStorage.hasOwnProperty("userResults"))				//was anything already saved in the database before?
 	{
-		localStorage.setItem("userResults", JSON.stringify([[subjTitle,`${result}/${quesList.length}`, percent, timestamp]]))
+		localStorage.setItem("userResults", JSON.stringify([[subject,`${result}/${quesList.length}`, percent, timestamp]]))		//create a new database to accept data
 	}
 	else
 	{
 		let temp = JSON.parse(localStorage.getItem("userResults"));
-		temp.push([subjTitle,`${result}/${quesList.length}`, percent, timestamp]);
-		localStorage.setItem("userResults", JSON.stringify(temp));
+		temp.push([subject,`${result}/${quesList.length}`, percent, timestamp]);			//update the previously saved data
+		localStorage.setItem("userResults", JSON.stringify(temp));							//overwrite/save as a newly created database
 	}
+}
+
+function createQuestionInReview (reviewedQuestion, num){			//function to prepare each item question in the list
+	const conversion_obj = {"A":0, "B":1, "C":2, "D":3};
+	let newContainer = document.createElement("div");
+	newContainer.setAttribute("class","question-in-review");
+	let correct = conversion_obj[reviewedQuestion[5]];				//the fourth item in the reviewedQuestion list is the correct answer
+	let choice = conversion_obj[reviewedQuestion[6]];				//the fifth item is the user's choice
+
+	newContainer.innerHTML += `<p>${num + 1}. ${reviewedQuestion[0]}</p>`;		//the first item is the question itself
+	for(let x = 0; x <= 3; x++)
+	{
+		if(x == choice && x == correct)					//generate and style the options accordingly
+		{
+			newContainer.innerHTML += `<p style="background-color:green; color:black; margin:10px"><i class="fa fa-circle"></i> <span style="color:white">${reviewedQuestion[x + 1]}</span></p>`;
+		}
+		else if(x == choice || x == correct)
+		{
+			if(x == correct)
+			{
+				newContainer.innerHTML += `<p style="background-color:green; color:black; margin:10px"><i class="fa fa-circle"></i> <span style="color:white">${reviewedQuestion[x + 1]}</span></p>`;
+			}
+			else
+			{
+				newContainer.innerHTML += `<p style="background-color:red; color:black; margin:10px"><i class="fa fa-circle"></i> <span style="color:white">${reviewedQuestion[x + 1]}</span></p>`;
+			}
+		}
+		else
+		{
+			newContainer.innerHTML += `<p style="color:black; margin:10px"><i class="fa fa-circle"></i> <span>${reviewedQuestion[x + 1]}</span></p>`;
+		}
+	}
+	return newContainer;
+}
+
+function getAllQuestionsInReview(answeredQuestionList)				//function which brings all the questions together
+{
+	let reviewContainer = document.createElement("div");
+	reviewContainer.setAttribute("id","cont-question-in-review");
+	for(let x = 0; x < answeredQuestionList.length; x++)
+	{
+		reviewContainer.appendChild(createQuestionInReview(answeredQuestionList[x], x));		//bring all the questions together
+	}
+	return reviewContainer;
 }
 
 okay.addEventListener("click", () => {
 	clearInterval(timeOut);									//stop the timer
 	submitted = true;										//the user has submitted and seen the results
+	testIsOn = false;										//a test just ended			
 	generateAndPresentResult();
+	sessionStorage.setItem("recentlyAnswered", JSON.stringify(quesList));		//save the just concluded test along
+	sessionStorage.setItem("recentSubjectTitle",subject);						//with the subject title						
 	});
 
-menu.addEventListener("click", () => {				//hide and display the menu bar
-	if(pressMenu){									//show it
-		menuBar.style.display = "block";
-		pressMenu = false;
-	}
-	else{
-		menuBar.style.display = "none";				//hide it
-		pressMenu = true;
-	}
-})
+//hide and display the menu bar
+menu.addEventListener("click",() => pressMenu  ? ( menuBar.style.display = "block", pressMenu = false) : (menuBar.style.display = "none", pressMenu = true))
 
 addEventListener("click", event => {		//Alternative to using the menu button to hide the menu bar
 	let x = document.body.clientWidth;		 //the with of the page
@@ -1007,54 +1048,52 @@ addEventListener("click", event => {		//Alternative to using the menu button to 
 //show available subject options to the users
 chooseSubject.addEventListener("click", () => {
 	chooseSubject.style.display = "none";
-	subjectOptions.style.display = "block";
+	subjectContainer.style.display = "block";
 	displayArea.style.setProperty("padding-top", "0px");
-	subjectOptions.style.animation="slide 0.2s linear normal";
+	subjectContainer.style.animation="slide 0.2s linear normal";
  });
- let secondTier = Array.from(document.querySelectorAll(".second-tier"));
- for(let x of secondTier)
+ let secondTier = Array.from(document.querySelectorAll(".second-tier"));	//the second tier here refers to the sub-category of a subject
+ for(let x of secondTier)													//e.g Mathematics is categorised into junior and senior
  {
-	 x.classList.add("sublist");
+	 x.classList.add("sublist");	
  }
-subjectOptions.addEventListener("click", event => {
-	subject = event.target.textContent;
-	subjTitle = subject;				//users choose a subject
-	subjChosen = subject;
-	switch(subject){
-		case "MATHEMATICS":
+
+addEventListener("click", event => {
+	if (!event.target.classList.contains("subject")) return;
+	_("#back-to-main").style.display="block";
+	subject = event.target.id;		//users choose a subject
+	subjChosen = subject;			//save the subject chosen ahead of retake
+	
+	switch(subject)
+	{
+		case "mathematics":
+			secondTierID = "#level-maths";
 			selectionArea.innerHTML = _("#level-maths").innerHTML;
 			break;
-		case "PROGRAMMING":
-			selectionArea.innerHTML = _("#programming").innerHTML;
+		case "junior-mathematics":
+			
+		case "senior-mathematics":
+			passedThroughSecondTier = true;				//the subject was chosen from the sub-category/second tier
+			allocatedTime = 40;	
+			selectionArea.innerHTML = `You have <span style="font-weight:bolder;">${allocatedTime} minutes</span> for this test.`;
+			start.style.display = "block";
+			break;
+		case "programming":
+			secondTierID = "#cont-programming-second-tier";
+			selectionArea.innerHTML = _("#cont-programming-second-tier").innerHTML;
+			break;
+		case "data-structure-and-algorithm":
+		case "python":
+			passedThroughSecondTier = true;
+			allocatedTime = 35;
+			selectionArea.innerHTML = `You have <span style="font-weight:bolder;">${allocatedTime} minutes</span> for this test.`;
+			start.style.display = "block";
 			break;
 		default:
 			allocatedTime = 20;
 			selectionArea.innerHTML = `You have <span style="font-weight:bolder;">${allocatedTime} minutes</span> for this test.`;
 			start.style.display = "block";
-			break;						// allocate 20 minutes to all other subjects;	
-	}	
-});
-addEventListener("click", event => {
-	subject = event.target.id || event.target.textContent;
-	
-	switch(subject)
-	{
-		case "junior-maths":
-			
-		case "senior-maths":
-			subjChosen = subject;
-			allocatedTime = 40;	
-			selectionArea.innerHTML = `You have <span style="font-weight:bolder;">${allocatedTime} minutes</span> for this test.`;
-			start.style.display = "block";
-			break;
-		case "dsa":
-			
-		case "python":
-			subjChosen = subject;
-			allocatedTime = 35;
-			selectionArea.innerHTML = `You have <span style="font-weight:bolder;">${allocatedTime} minutes</span> for this test.`;
-			start.style.display = "block";
-			break;
+			break;		
 	}
 	
 	});
@@ -1095,7 +1134,14 @@ function displayResult(){
 //consequently, 0 is recorded for any unanswered question in this case
 
 function submitWithout(){
+	testIsOn = false;
 	error.style.display = "none";
+	_("#confirm-quit").style.display = "none";
+	_("#confirm-submit").style.display = "none";
+	_("#menu-bar").style.display = "none";
+	_("#results").style.display = "none";
+	_("#cont-outer-review").style.display = "none";
+	_("#chart-outer-wrapper").style.display = "none";
 	generateAndPresentResult();
 }
 
@@ -1106,7 +1152,7 @@ send.addEventListener("click",() => {
 	else{
 		error.style.display = "none";
 		_("#overlay").style.display = "block";
-		_("#confirmation").style.display = "flex";	//if all questions were answered, confirmation page pops us ready for submission
+		_("#confirm-submit").style.display = "flex";	//if all questions were answered, confirmation page pops us ready for submission
 		_("#cancel").focus();
 	}
 })
@@ -1120,14 +1166,14 @@ function render(chosen){
 	optionC = quesList[pos][3];
 	optionD = quesList[pos][4];
 	
-	_(".subject-title").innerHTML = subjTitle.toUpperCase();
+	subject = subject.split("-").join(" ").toUpperCase()
+	_(".subject-title").innerHTML = subject;
 
 	displayArea.style.setProperty("align-items","flex-start");
-	//displayArea.style.setProperty("justify-content","flex-start");
 	displayArea.style.setProperty("padding-top","10%");
 	displayArea.style.setProperty("font-weight","bold");
 	displayArea.innerHTML = "";
-	 if(subject == "ENGLISH LANGUAGE"){					//pass in the instruction for English only
+	 if(subject == "english-language"){					//pass in the instruction for English only
 		displayArea.innerHTML = `<p style="font-style:italic; font-weight:light; margin-bottom:8px;">For questions 1 to 10, choose the option that is <span style="font-style:normal; font-weight:bolder;">most nearly opposite</span> in meaning to the underlined word as it is used in the sentence</p>`;
 	}
 				
@@ -1146,34 +1192,40 @@ function render(chosen){
 	startTimer(allocatedTime * 60);									//allocate time for the test and start reading in countdown fashion
 }
 
-start.addEventListener("click", () => {chooseQuest(subject);})	//use the subject chosen
+start.addEventListener("click", () => {
+	_("#quit-test").style.display = "block";
+	testIsOn = true;							//a test is going on
+	backOne.style.display = "none";
+	chooseQuest(subject);				//use the subject chosen
+})	
 
-function chooseQuest(subj){
+function chooseQuest(subj){				//render the question based on the subject chosen
 	switch(subj){
-		case "ENGLISH LANGUAGE":
+		case "english-language":
 			render(qEnglish);
 			break;
-		case "senior-maths":
+		case "senior-mathematics":
 			render(qMathsSenior);
 			break;
-		case "junior-maths":
+		case "junior-mathematics":
 			render(qMathsJunior);
 			break;
-		case "COMPUTER STUDIES":
+		case "computer-studies":
 			render(qComputer);
 			break;
-		case "BASIC TECHNOLOGY":
+		case "basic-technology":
 			render(qBasicTech);
 			break;
-		case "BASIC SCIENCE":
+		case "basic-science":
 			render(qBasicScience);
 			break;
-		case "dsa":
+		case "data-structure-and-algorithm":
 			render(qDSA);
 			break;
 		case "python":
 			render(qPython);
 			break;
+		
 	}
 };
 
@@ -1189,7 +1241,7 @@ function displayQuestion(sign){
 	displayArea.style.setProperty("padding-top","10%");
 	displayArea.style.setProperty("font-weight","bold");
 	displayArea.innerHTML = "";
-	if(subject == "ENGLISH LANGUAGE"){
+	if(subject == "english-language"){
 		switch(pos){			//pass in the corresponding instructions at each section for English only
 			case 10:
 				displayArea.innerHTML = `<p style="font-style:italic; font-weight:light; margin-bottom:8px;">For questions 11 to 18, choose the option that <span style="font-style:normal; font-weight:bolder;">best completes</span> each of the following sentences</p><br>`;
@@ -1253,6 +1305,39 @@ prev.addEventListener("click", function() {
 	
 });
 
+_("#quit-test").addEventListener("click",function(){
+	_("#overlay").style.display = "block";
+	_("#confirm-quit").style.display = "flex";
+	_("#no").focus();								//always focus on the less destructive button(s) on a confirmation box
+})
+_("#yes").addEventListener("click",function(){
+	location.reload();
+})
+_("#no").addEventListener("click",function(){
+	_("#overlay").style.display = "none";
+	_("#confirm-quit").style.display = "none";
+})
+
+backOne.addEventListener("click",function (){
+	if(passedThroughSecondTier)					//has the navigated through the sub-category?
+	{
+		passedThroughSecondTier = false;
+		switch(secondTierID)
+		{										//render the sub-category accordingly;
+			case "#level-maths":
+				selectionArea.innerHTML = _("#level-maths").innerHTML;		
+				break;
+			case "#cont-programming-second-tier":
+				selectionArea.innerHTML = _("#cont-programming-second-tier").innerHTML;
+				break;
+		}
+	}
+	else{															//the user has navigated back to the second-tier or the
+		selectionArea.innerHTML = subjectContainer.innerHTML;		//user did not get there in the first place
+		backOne.style.display ="none";
+	}
+	start.style.display = "none";
+})
 function startTimer(duration){
 	let timer = _(".timer");
 	let hour = 0;
@@ -1276,4 +1361,6 @@ function startTimer(duration){
 				timer.innerHTML = `${hour}:${min}:${sec}`;
 				x--;
 			}, 1000);
+	}
 }
+)();

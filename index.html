@@ -4,14 +4,20 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Bricademia Exam Portal</title>
-		<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
-		<!-- <script src="https://use.fontawesome.com/d0c490655e.js"></script> -->
+		<!-- <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css"> -->
+		<script src="https://use.fontawesome.com/d0c490655e.js"></script>
 		<link rel="stylesheet" href="css/styles.css">
 	</head>
 	<body>
 		<!-- *******************************Hidden Parts***********start************************** -->
 		<div id="overlay"></div>
+		<div id="cont-outer-review">
+			<div id="cont-review-header"><h5 id="subject-title-review"></h5><i id="close-review" class="fa fa-close"></i></div>
+			<div id="cont-review"></div>
+			<div id="cont-btn-back-to-top"><button id="btn-back-to-top">Back-To-Top <i class="fa fa-arrow-up"></i></button></div>
+		</div>
 		<div id="loader-wrapper"><i class="fa fa-graduation-cap loader"></i></div>
+		
 		<!-- all images used in the questions -->
 		<img src='images/exam_img.JPG' alt='Triangle Inside Square' style="display:none" class="webimage"/>
 		<img src='images/angleatapoint.JPG' alt='Angle at a Point' style="display:none" class="webimage"/>
@@ -24,27 +30,31 @@
 		<img src='images/anglebtwlines.JPG' alt='Angles between lines' style="display:none" class="webimage"/>
 		<img src='images/anglesinpolygon.JPG' alt='Angles in a polygon' style="display:none" class="webimage"/>
 		
-		<ul id="level-maths" style="display:none;">
-			<li id="junior-maths" class="second-tier">JUNIOR SECONDARY SCHOOLS</li>
-			<li id="senior-maths"class="second-tier">SENIOR SECONDARY SCHOOLS</li>
-		</ul>
-		<div id="programming" style="display:none;">
-			<div style="display:flex; align-items:baseline; justify-content:center; width:90%; margin:0 auto;">
+		<!-- sub-categories or second-tier of the subjects -->
+		<div id="level-maths" style="display:none;">
+			<ul class="cont-second-tier">
+				<li id="junior-mathematics" class="second-tier subject">JUNIOR SECONDARY SCHOOLS</li>
+				<li id="senior-mathematics"class="second-tier subject">SENIOR SECONDARY SCHOOLS</li>
+			</ul>
+		</div>
+		
+		<div id="cont-programming-second-tier" style="display:none;">
+			<div  class="cont-second-tier" style="display:flex; align-items:baseline; justify-content:center; width:90%; margin:0 auto;">
 				<ul style="width:50%;">
-					<li id="html" class="second-tier">HTML</li>
-					<li id="css" class="second-tier">CSS</li>
-					<li id="js" class="second-tier">JAVASCRIPT</li>
-					<li id="python" class="second-tier" style="display:none;">PYTHON</li>
+					<li id="html" class="second-tier subject">HTML</li>
+					<li id="css" class="second-tier subject">CSS</li>
+					<li id="javascript" class="second-tier subject">JAVASCRIPT</li>
+					<li id="python" class="second-tier subject">PYTHON</li>
 				</ul>
 				<ul style="width:50%;">
-					<li id="java" class="second-tier">JAVA</li>
-					<li id="php" class="second-tier">PHP</li>
-					<li id="dsa" class="second-tier">DATA STRUCTURE AND ALGORITHM</li>
-					<li id="dbs" class="second-tier">DATABASE</li>
+					<li id="java" class="second-tier subject">JAVA</li>
+					<li id="php" class="second-tier subject">PHP</li>
+					<li id="data-structure-and-algorithm" class="second-tier subject">DATA STRUCTURE AND ALGORITHM</li>
+					<li id="database" class="second-tier subject">DATABASE</li>
 				</ul>
 			</div>
-			<!-- <p><input type="button" class="backtomainlist" value= "Back"></p> -->
 		</div>
+		
 		<!-- ************Performance Chart********** -->
 		<div id="chart-outer-wrapper">
 			<div id="chart-inner-wrapper">
@@ -62,8 +72,8 @@
 				</div>
 				<div id="result-info"></div>
 				<p id="retake-wrapper">
-					<button style="margin-right:13px;" id="retake" class="btn-action">Re-take</button>
-					<button class="btn-action home">Home</button>
+					<button type="button" style="margin-right:13px;" id="retake" class="btn-action">Re-take</button>
+					<button type="button" class="btn-action home">Home</button>
 				</p>
 			</div>
 		</div>
@@ -71,14 +81,22 @@
 		<div id="menu-bar">
 			<p class="home">Home</p>
 			<p class="result">Results</p>
-			<!-- <p class="contact">Contact</p> -->
+			<p class="review">Review Result</p>
 		</div>
 		<!-- ****Confirm the submission of the user's answers**** -->
-		<div id="confirmation">
-			<p>Are you sure you want to submit?</p>
+		<div class="confirmation" id="confirm-submit">
+			<h3 class="confirmation-message">Are you sure you want to submit?</h3>
 			<span>
-				<button type="button" id="ok" class="btn-confirm">OK</button>
-				<button type="button" id="cancel" class="btn-confirm">CANCEL</button>
+				<button type="button" id="ok" class="btn-confirm yes">OK</button>
+				<button type="button" id="cancel" class="btn-confirm no">CANCEL</button>
+			</span>
+		</div>
+		<!-- ****Confirm the quitting of a particular section**** -->
+		<div class="confirmation" id="confirm-quit">
+			<h3 class="confirmation-message">Do you want to quit?</h3>
+			<span>
+				<button type="button" id="yes" class="btn-confirm yes">YES</button>
+				<button type="button" id="no" class="btn-confirm no">NO</button>
 			</span>
 		</div>
 		<!-- ****This encloses everything**** -->
@@ -97,7 +115,7 @@
 						</tr>
 					</table>
 				</div>
-				<p id="clear-log"><button>Clear Log</button></p>
+				<p id="clear-log"><button type="button">Clear Log</button></p>
 			</div>
 			<!-- *****Logo and name of the app are placed here**** -->
 			<header>
@@ -111,7 +129,8 @@
 					<!-- These are hidden for mobile version -->
 						<li class="nav-menu home">Home</li>
 						<li class="nav-menu result">Results</li>
-						<!-- <li class="nav-menu portfolio">Portfolio</li> -->
+						<li class="nav-menu review">Review Result</li>
+						
 					</div>
 				</div>
 			</header>
@@ -129,34 +148,36 @@
 						<section id="subject-option">
 							
 							<div id="choose-subject"><span>Please select a subject:</span><span class="arrow">↓</span></div>
-							<div>
+							<div id="cont-subject">
 								<ul id="subject">
-									<li>BASIC SCIENCE</li>
-									<li>MATHEMATICS</li>
-									<li>BASIC TECHNOLOGY</li>
-									<li>ENGLISH LANGUAGE</li>
-									<li>COMPUTER STUDIES</li>
-									<li>PROGRAMMING</li>
+									<li id="basic-science" class="subject">BASIC SCIENCE</li>
+									<li id="mathematics" class="subject">MATHEMATICS</li>
+									<li id="basic-technology" class="subject">BASIC TECHNOLOGY</li>
+									<li id="english-language" class="subject">ENGLISH LANGUAGE</li>
+									<li id="computer-studies" class="subject">COMPUTER STUDIES</li>
+									<li id="programming" class="subject">PROGRAMMING</li>
 								</ul>
-								<p>Youuuuuuuuuu</p>
+								
 							</div>
+							
 						</section>
-						<button id="start" class="btn-action">Start Test</button>
+						<button type="button" id="start" class="btn-action">Start Test</button>
 					</div>
+					<div class="cont-btn-back"><button type="button" class="btn-back" id="quit-test">Quit</button><button type="button" class="btn-back" id="back-to-main">Back</button></div>
 				</div>
 				<!-- -----------------------------users can retake the just concluded test ------------------------ -->
 				<span id="error">***You have not selected an answer***</span>	<!-- This displays the error -->
 				<nav>
 					<!-- These form the navigation part -->
-					<span id="prev" class="nav-class btn-nav"><<</span>
+					<span id="prev" class="nav-class btn-nav">&lt;&lt;</span>
 					<span id="page" class="nav-class"></span>
-					<span id="next" class="nav-class btn-nav">>></span>
-					<button id="send" class="btn-action">Submit</button>
+					<span id="next" class="nav-class btn-nav">&gt;&gt;</span>
+					<button type="button" id="send" class="btn-action">Submit</button>
 				</nav>
 			</main>
 			<footer>
 				<section id="footer-info">
-					<p id="footer-nav-wrapper"><span class="foot-nav home">Home</span> <span class="foot-nav result">Results</span></p>
+					<p id="footer-nav-wrapper"><span class="foot-nav home">Home</span> <span class="foot-nav result">Results</span><span class="foot-nav review">Review Result</span></p>
 					<p id="copyright-wrapper">Jummate<span>&nbsp;&copy;</span>2021</p>
 					<p id="footer-remark-wrapper">Designed by Omololu Jumat</p>
 				</section>
